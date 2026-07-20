@@ -8,8 +8,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Active link
   const page = location.pathname.split('/').pop() || 'index.html';
+  const cleanPage = page.replace('.html', '');
   document.querySelectorAll('.nav__link').forEach(l => {
-    l.classList.toggle('active', l.getAttribute('href') === page);
+    const href = l.getAttribute('href') || '';
+    const cleanHref = href.replace('.html', '');
+    l.classList.toggle('active', cleanHref === cleanPage);
   });
 
   // Hamburger
