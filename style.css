@@ -956,42 +956,42 @@ ul { list-style: none; }
     padding: 65px 0 40px;
   }
   .stat--tl {
-    transform: translateY(-10px) !important;
+    transform: translateY(clamp(-10px, -1.2vw, -5px)) !important;
     animation: none !important;
   }
   .stat--tr {
-    transform: translateY(-45px) !important;
+    transform: translateY(clamp(-45px, -5vw, -20px)) !important;
     animation: none !important;
   }
   .stat--bl {
-    transform: translateY(10px) !important;
+    transform: translateY(clamp(5px, 1.2vw, 10px)) !important;
     animation: none !important;
   }
   .stat--br {
-    transform: translateY(-25px) !important;
+    transform: translateY(clamp(-25px, -3vw, -10px)) !important;
     animation: none !important;
   }
   .stat {
-    padding: 34px 28px 28px;
+    padding: clamp(20px, 3.5vw, 34px) clamp(16px, 3vw, 28px);
   }
   .stat__icon {
-    width: 52px;
-    height: 52px;
-    margin-bottom: 16px;
+    width: clamp(36px, 5.5vw, 52px);
+    height: clamp(36px, 5.5vw, 52px);
+    margin-bottom: clamp(10px, 1.8vw, 16px);
   }
   .stat__icon svg {
-    width: 24px;
-    height: 24px;
+    width: clamp(18px, 2.8vw, 24px);
+    height: clamp(18px, 2.8vw, 24px);
   }
   .stat__num {
-    font-size: 3.0rem !important;
+    font-size: clamp(2.0rem, 7vw, 3.0rem) !important;
   }
   .stat--green .stat__num,
   .stat--brick .stat__num {
-    font-size: 3.5rem !important;
+    font-size: clamp(2.3rem, 8vw, 3.5rem) !important;
   }
   .stat__label {
-    font-size: 0.76rem;
+    font-size: clamp(0.62rem, 1.8vw, 0.76rem);
     letter-spacing: 0.1em;
   }
   .about__inner { grid-template-columns: 1fr; gap: 40px; padding-bottom: 56px; }
