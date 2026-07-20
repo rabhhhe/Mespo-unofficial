@@ -7,12 +7,15 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { passive: true });
 
   // Active link
-  const page = location.pathname.split('/').pop() || 'index.html';
-  const cleanPage = page.replace('.html', '');
+  const path = location.pathname.toLowerCase();
   document.querySelectorAll('.nav__link').forEach(l => {
     const href = l.getAttribute('href') || '';
-    const cleanHref = href.replace('.html', '');
-    l.classList.toggle('active', cleanHref === cleanPage);
+    const name = href.toLowerCase().replace('.html', '');
+    
+    const isActive = (name === 'index' && (path === '/' || path.endsWith('/') || path.includes('index'))) || 
+                     (name !== 'index' && name !== '' && path.includes(name));
+                     
+    l.classList.toggle('active', isActive);
   });
 
   // Hamburger
