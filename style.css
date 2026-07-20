@@ -584,7 +584,7 @@ ul { list-style: none; }
   flex-direction: column;
 }
 .prog-card:hover {
-  transform: translateY(-8px);
+  transform: translateY(-8px) scale(1.02);
 }
 .prog-card:nth-child(1):hover { box-shadow: 0 20px 40px rgba(27,58,45,0.25); }
 .prog-card:nth-child(2):hover { box-shadow: 0 20px 40px rgba(154,69,44,0.12); }
@@ -827,7 +827,7 @@ ul { list-style: none; }
   transition: transform var(--ease), box-shadow var(--ease), border-color var(--ease);
 }
 .process-step:hover {
-  transform: translateY(-6px);
+  transform: translateY(-6px) scale(1.02);
 }
 .process-step--green:hover { box-shadow: 0 16px 32px rgba(27,58,45,0.22); border-color: var(--green); }
 .process-step--brick:hover { box-shadow: 0 16px 32px rgba(154,69,44,0.22); border-color: var(--brick); }
