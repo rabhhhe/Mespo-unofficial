@@ -601,8 +601,8 @@ ul { list-style: none; }
 .prog-card:nth-child(6) { background: var(--green); border-color: var(--green); }
 
 .prog-card__img-wrap { height: 190px; overflow: hidden; position: relative; }
-.prog-card__img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
-.prog-card:hover .prog-card__img { transform: scale(1.08); }
+.prog-card__img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+.prog-card:hover .prog-card__img-wrap img { transform: scale(1.08); }
 
 .prog-card__body { padding: 28px 32px 36px; }
 .prog-card__icon {
