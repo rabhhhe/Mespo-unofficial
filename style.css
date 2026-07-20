@@ -953,11 +953,7 @@ ul { list-style: none; }
     max-width: 440px; 
     margin: 0 auto;
     gap: 12px;
-    padding: 24px 0;
-  }
-  .stat--tl, .stat--tr, .stat--bl, .stat--br { 
-    transform: none !important; 
-    animation: none !important; 
+    padding: 85px 0 48px;
   }
   .stat {
     padding: 20px 16px 16px;
