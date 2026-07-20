@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <script>
+    if (sessionStorage.getItem('site_authenticated') !== 'true') {
+      window.location.href = 'login.html';
+    }
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us - MES Ponnani College</title>
+  <meta name="description" content="Get in touch with MES Ponnani College. Address, email, phone details, administration helpdesks, maps, and travel information details."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+
+  <style>
+    /* Page Hero Banner */
+    .contact-hero {
+      padding-top: var(--nav-h);
+      position: relative;
+      height: 380px;
+      overflow: hidden;
+      background: var(--green);
+    }
+    .contact-hero__bg {
+      position: absolute; inset: 0;
+    }
+    .contact-hero__bg img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center 60%;
+      opacity: .25;
+    }
+    .contact-hero__inner {
+      position: relative; z-index: 2;
+      max-width: 1280px; margin: 0 auto;
+      padding: 0 64px;
+      height: 100%;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding-bottom: 56px;
+    }
+    .contact-hero__tag {
+      font-family: var(--font-sans);
+      font-size: .68rem; font-weight: 600;
+      letter-spacing: .22em; text-transform: uppercase;
+      color: var(--brick);
+      margin-bottom: 12px;
+    }
+    .contact-hero__heading {
+      font-family: var(--font-serif);
+      font-size: clamp(3.2rem, 5vw, 4.8rem);
+      font-weight: 600;
+      line-height: 1.05;
+      color: var(--cream);
+    }
+    .contact-hero__heading em {
+      font-style: italic;
+      color: var(--brick);
+    }
+
+    /* Contact Body grid layout */
+    .contact-body {
+      background: var(--cream);
+      padding: 100px 0;
+    }
+    .contact-body__inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 64px;
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    /* LEFT column info card (Blur Glass effect) */
+    .contact-info {
+      background: rgba(24, 53, 39, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--white);
+      padding: 48px;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 36px;
+      box-shadow: 0 20px 45px rgba(0,0,0,.15);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .contact-info__label {
+      font-family: var(--font-sans);
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--brick);
+    }
+    .contact-info__rule {
+      width: 48px; height: 2.5px;
+      background: var(--brick);
+      margin-top: -24px;
+      margin-bottom: -16px;
+    }
+    .contact-info__intro {
+      font-family: var(--font-sans);
+      font-size: .84rem;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: -12px;
+    }
+
+    .info-card {
+      display: flex;
+      gap: 20px;
+      align-items: start;
+    }
+    .info-card__icon-wrap {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--cream);
+      flex-shrink: 0;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+    .info-card__content {
+      display: flex;
+      flex-direction: column;
+    }
+    .info-card__heading {
+      font-family: var(--font-sans);
+      font-size: .64rem;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 6px;
+    }
+    .info-card__value {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      line-height: 1.45;
+      color: var(--white);
+    }
+    .info-card__link {
+      font-family: var(--font-sans);
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      color: var(--cream);
+      text-transform: uppercase;
+      margin-top: 8px;
+      align-self: start;
+      transition: color var(--ease);
+    }
+    .info-card__link:hover {
+      color: var(--white);
+    }
+
+    /* Social Links strip */
+    .contact-social {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.15);
+    }
+    .contact-social__label {
+      font-family: var(--font-sans);
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
+    .contact-social__link {
+      color: rgba(255,255,255,0.6);
+      transition: color var(--ease);
+    }
+    .contact-social__link:hover {
+      color: var(--cream);
+    }
+
+    /* RIGHT column contact form */
+    .contact-form-wrap {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 48px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.03);
+    }
+    .contact-form__header {
+      margin-bottom: 36px;
+    }
+    .contact-form__sub {
+      font-family: var(--font-sans);
+      font-size: .88rem;
+      line-height: 1.75;
+      color: var(--text-muted);
+      margin-top: 16px;
+    }
+    
+    .contact-form {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .form-group--full {
+      grid-column: span 2;
+    }
+    .form-group__label {
+      font-family: var(--font-sans);
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--text-dark);
+    }
+    .contact-form input,
+    .contact-form select,
+    .contact-form textarea {
+      padding: 14px 18px;
+      border: 1px solid var(--border);
+      background: var(--cream-dark);
+      font-family: var(--font-sans);
+      font-size: .88rem;
+      border-radius: 4px;
+      transition: border-color var(--ease), background var(--ease);
+      color: var(--text-dark);
+    }
+    .contact-form input:focus,
+    .contact-form select:focus,
+    .contact-form textarea:focus {
+      outline: none;
+      border-color: var(--green);
+      background: var(--white);
+    }
+    .contact-form textarea {
+      min-height: 160px;
+      resize: vertical;
+    }
+
+    /* Submit Row */
+    .form-submit-row {
+      grid-column: span 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 32px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+    .form-note {
+      font-family: var(--font-sans);
+      font-size: .76rem;
+      line-height: 1.5;
+      color: var(--text-muted);
+      max-width: 420px;
+    }
+    .btn-contact-submit {
+      background: var(--green);
+      color: var(--cream);
+      font-family: var(--font-sans);
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      padding: 18px 36px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      transition: background var(--ease), transform var(--ease);
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-contact-submit:hover {
+      background: var(--green-dark);
+    }
+
+    /* Success message banner */
+    .form-success {
+      grid-column: span 2;
+      background: rgba(24,53,39,0.06);
+      border: 1px solid var(--green);
+      color: var(--green);
+      padding: 16px 20px;
+      border-radius: 4px;
+      display: none;
+      align-items: center;
+      gap: 14px;
+      font-family: var(--font-sans);
+      font-size: .84rem;
+      line-height: 1.5;
+    }
+    .form-success.visible {
+      display: flex;
+    }
+
+    /* Helpdesk cards section */
+    .contact-helpdesks {
+      background: var(--cream);
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+    }
+    .contact-helpdesks__inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 64px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+    .helpdesk-card {
+      padding: 40px;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
+      border: 1px solid var(--border);
+    }
+    .helpdesk-card--green { background: var(--green); color: var(--white); border-color: var(--green); }
+    .helpdesk-card--brick { background: var(--brick); color: var(--white); border-color: var(--brick); }
+    .helpdesk-card--cream { background: var(--white); color: var(--text-dark); }
+    
+    .helpdesk-card__title { font-family: var(--font-serif); font-size: 1.35rem; font-weight: 600; line-height: 1.2; }
+    .helpdesk-card__text { font-family: var(--font-sans); font-size: .84rem; line-height: 1.6; opacity: 0.9; }
+    .helpdesk-card__contact { display: flex; flex-direction: column; gap: 8px; font-family: var(--font-sans); font-size: .8rem; font-weight: 600; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 16px; margin-top: auto; }
+    .helpdesk-card--cream .helpdesk-card__contact { border-top-color: rgba(26,58,45,0.1); color: var(--text-muted); }
+
+    /* Map Section */
+    .contact-map {
+      background: var(--white);
+      padding: 100px 0;
+      border-top: 1px solid var(--border);
+    }
+    .contact-map__header {
+      max-width: 1280px;
+      margin: 0 auto 48px;
+      padding: 0 64px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 48px;
+    }
+    .contact-map__title {
+      font-family: var(--font-serif);
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: var(--green);
+      line-height: 1.1;
+    }
+    .contact-map__title em {
+      font-style: italic;
+      color: var(--brick);
+    }
+    .contact-map__directions {
+      font-family: var(--font-sans);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--brick);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: gap var(--ease);
+    }
+    .contact-map__directions:hover {
+      gap: 16px;
+    }
+    .contact-map__placeholder {
+      max-width: 1152px;
+      margin: 0 auto;
+      height: 480px;
+      background: var(--cream);
+      position: relative;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      box-shadow: 0 10px 20px rgba(0,0,0,.02);
+    }
+    .contact-map__placeholder::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(rgba(26,58,45,.08) 1.5px, transparent 1.5px);
+      background-size: 32px 32px;
+    }
+    .contact-map__pin {
+      position: relative;
+      z-index: 2;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--brick);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 24px rgba(154,69,44,.4);
+      margin-bottom: 20px;
+    }
+    .contact-map__pin-label {
+      position: relative;
+      z-index: 2;
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--green);
+      margin-bottom: 6px;
+    }
+    .contact-map__pin-sub {
+      position: relative;
+      z-index: 2;
+      font-family: var(--font-sans);
+      font-size: .84rem;
+      color: var(--text-muted);
+    }
+    .contact-map__badge {
+      position: absolute;
+      bottom: 24px; left: 24px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      padding: 10px 18px;
+      border-radius: 4px;
+      font-family: var(--font-sans);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,.04);
+    }
+    .contact-map__badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+    }
+
+    /* Locations Grid Facts Bar */
+    .contact-facts {
+      background: var(--white);
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+    }
+    .contact-facts__grid {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 64px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+    }
+    .contact-fact {
+      display: flex;
+      gap: 16px;
+      align-items: start;
+    }
+    .contact-fact__icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 4px;
+      background: var(--cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--green);
+      border: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .contact-fact__text {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .contact-fact__title {
+      font-family: var(--font-sans);
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .contact-fact__val {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      line-height: 1.3;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1100px) {
+      .contact-hero__inner,
+      .contact-body__inner,
+      .contact-helpdesks__inner,
+      .contact-map__header,
+      .contact-facts__grid {
+        padding: 0 40px;
+      }
+      .contact-body__inner {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+      .contact-helpdesks__inner {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .contact-facts__grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 768px) {
+      .contact-helpdesks__inner,
+      .contact-facts__grid {
+        grid-template-columns: 1fr;
+      }
+      .contact-form {
+        grid-template-columns: 1fr;
+      }
+      .form-group--full,
+      .form-submit-row {
+        grid-column: span 1;
+      }
+      .form-submit-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+      }
+    }
+    @media (max-width: 600px) {
+      .contact-hero__inner,
+      .contact-body__inner,
+      .contact-helpdesks__inner,
+      .contact-map__header,
+      .contact-facts__grid {
+        padding: 0 24px;
+      }
+      .contact-info {
+        padding: 32px 24px;
+      }
+      .contact-form-wrap {
+        padding: 32px 24px;
+      }
+      .contact-map__placeholder {
+        height: 360px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAV ===== -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">
+        <img src="images/mes_logo.png" alt="MES Logo" class="nav__logo-img"/>
+        <div class="nav__logo-text">
+          <span class="nav__logo-top">MES Ponnani</span>
+          <span class="nav__logo-bot">College</span>
+        </div>
+      </a>
+      <ul class="nav__links" id="nav-links">
+        <li><a href="about.html"       class="nav__link">About</a></li>
+        <li><a href="academics.html"   class="nav__link">Academics</a></li>
+        <li><a href="admissions.html"  class="nav__link">Admissions</a></li>
+        <li><a href="research.html"    class="nav__link">Research</a></li>
+        <li><a href="campus.html"      class="nav__link">Campus</a></li>
+        <li><a href="departments.html" class="nav__link">Departments</a></li>
+        <li><a href="contact.html"     class="nav__link active">Contact</a></li>
+        <li class="nav__more-wrapper">
+          <button class="nav__more-btn" id="nav-more-btn" aria-haspopup="true" aria-expanded="false">
+            <span>More</span>
+            <svg class="nav__more-icon" width="10" height="6" viewBox="0 0 10 6" fill="none">
+              <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="nav__more-dropdown" id="nav-more-dropdown">
+            <a href="#" class="nav__more-link">Alumni Portal</a>
+            <a href="#" class="nav__more-link">IQAC</a>
+            <a href="#" class="nav__more-link">Gallery</a>
+            <a href="#" class="nav__more-link">Privacy Policy</a>
+            <a href="#" class="nav__more-link">Terms of Service</a>
+          </div>
+        </li>
+      </ul>
+      <a href="admissions.html" class="nav__apply">
+        <span>APPLY</span><span>NOW</span>
+      </a>
+      <button class="nav__hamburger" id="nav-hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== HERO BANNER ===== -->
+  <section class="contact-hero" id="contact-hero">
+    <div class="contact-hero__bg">
+      <img src="images/about_campus.jpg" alt="MES Ponnani College Campus"/>
+    </div>
+    <div class="contact-hero__inner">
+      <p class="contact-hero__tag">Get In Touch</p>
+      <h1 class="contact-hero__heading">
+        Let's Start a<br>
+        <em>Conversation.</em>
+      </h1>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT BODY ===== -->
+  <section class="contact-body" id="contact">
+    <div class="contact-body__inner">
+
+      <!-- LEFT: Contact Info Card (Blur glass effect) -->
+      <aside class="contact-info reveal">
+        <p class="contact-info__label">Contact Information</p>
+        <div class="contact-info__rule"></div>
+        <p class="contact-info__intro">
+          We welcome your enquiries, feedback, and messages. Reach out through any of the channels below and our team will respond promptly.
+        </p>
+
+        <!-- Address -->
+        <div class="info-card">
+          <div class="info-card__icon-wrap">
+            <svg width="18" height="20" viewBox="0 0 18 20" fill="none" aria-hidden="true" style="color:var(--cream);">
+              <path d="M9 1C5.13 1 2 4.13 2 8c0 5.25 7 11 7 11s7-5.75 7-11c0-3.87-3.13-7-7-7z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+              <circle cx="9" cy="8" r="2.5" stroke="currentColor" stroke-width="1.3"/>
+            </svg>
+          </div>
+          <div class="info-card__content">
+            <div class="info-card__heading">Address</div>
+            <div class="info-card__value">MES Ponnani College<br>Ponnani, Malappuram District<br>Kerala - 679 577</div>
+          </div>
+        </div>
+
+        <!-- Phone -->
+        <div class="info-card">
+          <div class="info-card__icon-wrap">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true" style="color:var(--cream);">
+              <path d="M3.5 1h3.8l1.4 4-2 1.2a10.2 10.2 0 005.1 5.1L13 9.3l4 1.4V14.5A2.5 2.5 0 0114.5 17C7 17 1 11 1 3.5A2.5 2.5 0 013.5 1z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="info-card__content">
+            <div class="info-card__heading">Phone</div>
+            <div class="info-card__value">+91 494 226 2422</div>
+            <a href="tel:+914942262422" class="info-card__link">Call us &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="info-card">
+          <div class="info-card__icon-wrap">
+            <svg width="20" height="14" viewBox="0 0 20 14" fill="none" aria-hidden="true" style="color:var(--cream);">
+              <rect x="1" y="1" width="18" height="12" rx="1.5" stroke="currentColor" stroke-width="1.4"/>
+              <path d="M1 3l9 6 9-6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="info-card__content">
+            <div class="info-card__heading">Email</div>
+            <div class="info-card__value">principal@mesponnani.ac.in</div>
+            <a href="mailto:principal@mesponnani.ac.in" class="info-card__link">Send email &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Working Hours -->
+        <div class="info-card info-card--hours">
+          <div class="info-card__icon-wrap">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true" style="color:var(--cream);">
+              <circle cx="9" cy="9" r="7.5" stroke="currentColor" stroke-width="1.4"/>
+              <path d="M9 5v4l2.5 2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="info-card__content">
+            <div class="info-card__heading">Working Hours</div>
+            <div class="info-card__value">Mon - Sat<br>9:00 AM - 5:00 PM</div>
+          </div>
+        </div>
+
+        <!-- Social strip -->
+        <div class="contact-social" role="list" aria-label="Social media links">
+          <span class="contact-social__label">Follow</span>
+          <a href="#" class="contact-social__link" aria-label="Facebook" role="listitem">
+            <svg width="10" height="18" viewBox="0 0 10 18" fill="none">
+              <path d="M6.5 6H9V3H6.5C4.57 3 3 4.57 3 6.5V8H1v3h2v7h3v-7h2.5l.5-3H6V6.5c0-.28.22-.5.5-.5z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <a href="#" class="contact-social__link" aria-label="Instagram" role="listitem">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <rect x="1" y="1" width="16" height="16" rx="4" stroke="currentColor" stroke-width="1.3"/>
+              <circle cx="9" cy="9" r="3.5" stroke="currentColor" stroke-width="1.3"/>
+              <circle cx="13" cy="5" r="1" fill="currentColor"/>
+            </svg>
+          </a>
+          <a href="#" class="contact-social__link" aria-label="YouTube" role="listitem">
+            <svg width="20" height="14" viewBox="0 0 20 14" fill="none">
+              <rect x="1" y="1" width="18" height="12" rx="3" stroke="currentColor" stroke-width="1.3"/>
+              <path d="M8 4.5l5 2.5-5 2.5V4.5z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <a href="#" class="contact-social__link" aria-label="Twitter" role="listitem">
+            <svg width="18" height="16" viewBox="0 0 18 16" fill="none">
+              <path d="M1 1l6.5 7.5L1 15h2l5-5.5 4 5.5h5l-7-9 6-6h-2L9 5.5 5 1H1z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </aside>
+
+      <!-- RIGHT: Contact Form -->
+      <div class="contact-form-wrap reveal reveal-d1">
+        <div class="contact-form__header">
+          <p class="section-tag">Send A Message</p>
+          <div class="section-rule"></div>
+          <p class="contact-form__sub">
+            Have a question about admissions, programmes, or campus life? Fill out the form below and a member of our team will get back to you within one working day.
+          </p>
+        </div>
+
+        <form class="contact-form" id="contact-form" novalidate>
+
+          <!-- Full Name -->
+          <div class="form-group">
+            <label class="form-group__label" for="cf-name">Full Name</label>
+            <input type="text" id="cf-name" name="full_name" placeholder="e.g. Arjun Mohamed" autocomplete="name" required/>
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label class="form-group__label" for="cf-email">Email Address</label>
+            <input type="email" id="cf-email" name="email" placeholder="you@example.com" autocomplete="email" required/>
+          </div>
+
+          <!-- Phone -->
+          <div class="form-group">
+            <label class="form-group__label" for="cf-phone">Phone Number</label>
+            <input type="tel" id="cf-phone" name="phone" placeholder="+91 00000 00000" autocomplete="tel"/>
+          </div>
+
+          <!-- Subject -->
+          <div class="form-group">
+            <label class="form-group__label" for="cf-subject">Subject</label>
+            <select id="cf-subject" name="subject" required>
+              <option value="" disabled selected>Select a subject...</option>
+              <option value="admissions">Admissions Enquiry</option>
+              <option value="academics">Academic Programmes</option>
+              <option value="scholarships">Scholarships &amp; Financial Aid</option>
+              <option value="research">Research Opportunities</option>
+              <option value="campus">Campus &amp; Facilities</option>
+              <option value="alumni">Alumni Relations</option>
+              <option value="general">General Enquiry</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <!-- Message -->
+          <div class="form-group form-group--full">
+            <label class="form-group__label" for="cf-message">Message</label>
+            <textarea id="cf-message" name="message" placeholder="Write your message here..." required></textarea>
+          </div>
+
+          <!-- Success banner -->
+          <div class="form-success" id="form-success" role="alert">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="color:var(--green);">
+              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M7 12l3.5 3.5L17 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Thank you! Your message has been received. We will be in touch within one working day.</span>
+          </div>
+
+          <!-- Submit -->
+          <div class="form-submit-row">
+            <p class="form-note">
+              <strong>Your privacy matters.</strong> We will never share your details with third parties. See our Privacy Policy for more information.
+            </p>
+            <button type="submit" class="btn-contact-submit" id="cf-submit">
+              Send Message
+              <svg width="16" height="10" viewBox="0 0 16 10" fill="none" style="color:var(--cream);">
+                <path d="M1 5h14M10 1l5 4-5 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== HELPDESKS SECTION ===== -->
+  <section class="contact-helpdesks">
+    <div class="contact-helpdesks__inner reveal">
+      
+      <!-- Card 1: Admissions -->
+      <div class="helpdesk-card helpdesk-card--green">
+        <h3 class="helpdesk-card__title">Admissions Helpdesk</h3>
+        <p class="helpdesk-card__text">For all admission-related queries, deadlines, eligibility criteria, and fee structures.</p>
+        <div class="helpdesk-card__contact">
+          <span>Email: admissions@mesponnani.ac.in</span>
+          <span>Phone: +91 494 226 2423</span>
+        </div>
+      </div>
+
+      <!-- Card 2: Exam Cell -->
+      <div class="helpdesk-card helpdesk-card--brick">
+        <h3 class="helpdesk-card__title">Examination Cell</h3>
+        <p class="helpdesk-card__text">For university exams, internal assessments, results, certificates, and hall tickets.</p>
+        <div class="helpdesk-card__contact">
+          <span>Email: examcell@mesponnani.ac.in</span>
+          <span>Phone: +91 494 226 2424</span>
+        </div>
+      </div>
+
+      <!-- Card 3: General Office -->
+      <div class="helpdesk-card helpdesk-card--cream">
+        <h3 class="helpdesk-card__title">General Enquiry</h3>
+        <p class="helpdesk-card__text">For general office enquiries, administrative approvals, TC requests, and certificates.</p>
+        <div class="helpdesk-card__contact">
+          <span>Email: info@mesponnani.ac.in</span>
+          <span>Phone: +91 494 226 2422</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== CAMPUS MAP ===== -->
+  <section class="contact-map reveal" id="campus-map">
+    <div class="contact-map__header">
+      <h2 class="contact-map__title">Find Us on<br><em>Campus</em></h2>
+      <a href="https://maps.google.com/?q=MES+Ponnani+College,+Ponnani,+Kerala" target="_blank" rel="noopener" class="contact-map__directions">
+        Get Directions
+        <svg width="12" height="10" viewBox="0 0 12 10" fill="none" style="color:var(--brick);">
+          <path d="M1 5h10M7 1l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+
+    <div class="contact-map__placeholder" role="img" aria-label="Campus location map placeholder">
+      <div class="contact-map__pin">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <circle cx="7" cy="7" r="3" stroke="white" stroke-width="1.5"/>
+          <circle cx="7" cy="7" r="5.5" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+        </svg>
+      </div>
+      <div class="contact-map__pin-label">Campus Location</div>
+      <div class="contact-map__pin-sub">Ponnani, Malappuram, Kerala</div>
+      <div class="contact-map__badge">
+        <span class="contact-map__badge-dot"></span>
+        MES Ponnani College
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== QUICK FACTS BAR / LOCATIONS GRID ===== -->
+  <div class="contact-facts reveal reveal-d1">
+    <div class="contact-facts__grid">
+
+      <div class="contact-fact">
+        <div class="contact-fact__icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" style="color:var(--green);">
+            <rect x="1" y="4" width="16" height="13" rx="1" stroke="currentColor" stroke-width="1.3"/>
+            <path d="M5 4V3a4 4 0 018 0v1" stroke="currentColor" stroke-width="1.3"/>
+            <circle cx="9" cy="10.5" r="1.5" stroke="currentColor" stroke-width="1.2"/>
+          </svg>
+        </div>
+        <div class="contact-fact__text">
+          <div class="contact-fact__title">Nearest Railway</div>
+          <div class="contact-fact__val">Shoranur Junction<br>~35 km</div>
+        </div>
+      </div>
+
+      <div class="contact-fact">
+        <div class="contact-fact__icon">
+          <svg width="20" height="16" viewBox="0 0 20 16" fill="none" style="color:var(--green);">
+            <rect x="1" y="4" width="18" height="10" rx="1.5" stroke="currentColor" stroke-width="1.3"/>
+            <path d="M1 8h18" stroke="currentColor" stroke-width="1.3"/>
+            <circle cx="5" cy="14" r="1.5" stroke="currentColor" stroke-width="1.2"/>
+            <circle cx="15" cy="14" r="1.5" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M6 4V2a1 1 0 011-1h6a1 1 0 011 1v2" stroke="currentColor" stroke-width="1.3"/>
+          </svg>
+        </div>
+        <div class="contact-fact__text">
+          <div class="contact-fact__title">Nearest Bus Stand</div>
+          <div class="contact-fact__val">Ponnani Bus Stand<br>~2 km</div>
+        </div>
+      </div>
+
+      <div class="contact-fact">
+        <div class="contact-fact__icon">
+          <svg width="20" height="16" viewBox="0 0 20 16" fill="none" style="color:var(--green);">
+            <path d="M1 12L10 2l9 10" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
+            <path d="M4 12h12v3H4z" stroke="currentColor" stroke-width="1.3"/>
+            <circle cx="10" cy="7" r="1.5" stroke="currentColor" stroke-width="1.2"/>
+          </svg>
+        </div>
+        <div class="contact-fact__text">
+          <div class="contact-fact__title">Nearest Airport</div>
+          <div class="contact-fact__val">Calicut Int'l Airport<br>~55 km</div>
+        </div>
+      </div>
+
+      <div class="contact-fact">
+        <div class="contact-fact__icon">
+          <svg width="18" height="20" viewBox="0 0 18 20" fill="none" style="color:var(--green);">
+            <path d="M9 1C5.13 1 2 4.13 2 8c0 5.25 7 11 7 11s7-5.75 7-11c0-3.87-3.13-7-7-7z" stroke="currentColor" stroke-width="1.3"/>
+            <circle cx="9" cy="8" r="2" stroke="currentColor" stroke-width="1.2"/>
+          </svg>
+        </div>
+        <div class="contact-fact__text">
+          <div class="contact-fact__title">District</div>
+          <div class="contact-fact__val">Malappuram<br>Kerala, India</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer" id="footer">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <div class="footer__logo-top">MES Ponnani</div>
+        <div class="footer__logo-bot">College</div>
+      </div>
+      <nav class="footer__links">
+        <a href="#" class="footer__link">Privacy Policy</a>
+        <a href="#" class="footer__link">Terms of Service</a>
+        <a href="contact.html" class="footer__link">Contact Us</a>
+        <a href="#" class="footer__link">Alumni Portal</a>
+      </nav>
+      <div style="text-align:right;">
+        <a href="#" class="footer__link" style="display:block;margin-bottom:8px;">IQAC</a>
+        <p class="footer__copy">&copy; 2024 MES Ponnani College. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+    /* Contact form submit (demo) */
+    (function () {
+      var form    = document.getElementById('contact-form');
+      var success = document.getElementById('form-success');
+      var btn     = document.getElementById('cf-submit');
+
+      if (!form) return;
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        var name    = document.getElementById('cf-name');
+        var email   = document.getElementById('cf-email');
+        var subject = document.getElementById('cf-subject');
+        var message = document.getElementById('cf-message');
+
+        if (!name.value.trim() || !email.value.trim() || !subject.value || !message.value.trim()) {
+          btn.style.transition = 'transform .08s ease';
+          btn.style.transform  = 'translateX(-5px)';
+          setTimeout(function () { btn.style.transform = 'translateX(5px)'; }, 80);
+          setTimeout(function () { btn.style.transform = 'none'; btn.style.transition = ''; }, 180);
+          return;
+        }
+
+        btn.textContent = 'Sending...';
+        btn.disabled    = true;
+
+        setTimeout(function () {
+          success.classList.add('visible');
+          form.reset();
+          btn.innerHTML = 'Send Message <svg width="16" height="10" viewBox="0 0 16 10" fill="none" style="color:var(--cream);"><path d="M1 5h14M10 1l5 4-5 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+          btn.disabled  = false;
+
+          setTimeout(function () {
+            success.classList.remove('visible');
+          }, 9000);
+        }, 1400);
+      });
+    }());
+  </script>
+
+</body>
+</html>

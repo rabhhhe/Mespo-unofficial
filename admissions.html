@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <script>
+    if (sessionStorage.getItem('site_authenticated') !== 'true') {
+      window.location.href = 'login.html';
+    }
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admissions Guidelines & Procedures — MES Ponnani College</title>
+  <meta name="description" content="Discover the admissions process, seat matrix, fees structure, and scholarship options at MES Ponnani College. Step-by-step guidance for UG and PG admissions."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+
+  <style>
+    /* ============================================================
+       ADMISSIONS PAGE — EXTRA STYLES
+       ============================================================ */
+
+    /* ── Page Hero ────────────────────────────────────────── */
+    .ad-hero {
+      padding-top: var(--nav-h);
+      background: var(--cream);
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+
+
+    .ad-hero__inner {
+      max-width: 1280px; margin: 0 auto;
+      padding: 0 64px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      width: 100%;
+      position: relative; z-index: 1;
+      align-items: center;
+    }
+
+    .ad-hero__left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .ad-hero__heading {
+      font-family: var(--font-serif);
+      font-size: clamp(3.2rem, 5.5vw, 5.5rem);
+      font-weight: 500;
+      line-height: 1.05;
+      color: var(--green);
+      margin-bottom: 24px;
+    }
+
+    .ad-hero__heading em {
+      font-style: italic;
+      color: var(--brick);
+    }
+
+    .ad-hero__desc {
+      font-family: var(--font-sans);
+      font-size: .92rem;
+      line-height: 1.85;
+      color: var(--text-muted);
+      max-width: 520px;
+      margin-bottom: 32px;
+    }
+
+    .ad-hero__right {
+      position: relative;
+      height: 520px;
+      overflow: hidden;
+      box-shadow: 0 12px 48px rgba(0,0,0,.12);
+    }
+
+    .ad-hero__right img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .6s ease;
+    }
+    .ad-hero__right:hover img {
+      transform: scale(1.03);
+    }
+
+    /* ── Admission Steps ─────────────────────────────────── */
+    .steps-section {
+      background: var(--white);
+      padding: 100px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .steps-inner {
+      max-width: 1280px; margin: 0 auto;
+      padding: 0 64px;
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-top: 56px;
+    }
+
+    .step-card {
+      border: 1px solid var(--border);
+      padding: 40px 32px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      min-height: 260px;
+      transition: transform var(--ease), box-shadow var(--ease);
+      border-radius: 4px;
+    }
+    .step-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0,0,0,.08);
+    }
+    
+    .step-card:nth-child(1) { background: var(--green); border-color: var(--green); }
+    .step-card:nth-child(2) { background: var(--cream); border-color: rgba(154,69,44,0.15); }
+    .step-card:nth-child(3) { background: var(--white); border-color: var(--border); }
+    .step-card:nth-child(4) { background: var(--brick); border-color: var(--brick); }
+
+    .step-num {
+      position: static;
+      display: block;
+      margin-bottom: auto;
+      font-family: var(--font-sans);
+      font-size: 2.2rem; font-weight: 700;
+    }
+    .step-card:nth-child(1) .step-num { color: var(--white); opacity: .5; }
+    .step-card:nth-child(2) .step-num { color: var(--brick); opacity: .45; }
+    .step-card:nth-child(3) .step-num { color: var(--green); opacity: .35; }
+    .step-card:nth-child(4) .step-num { color: var(--white); opacity: .55; }
+
+    .step-title {
+      font-family: var(--font-serif);
+      font-size: 1.45rem; font-weight: 600;
+      margin-bottom: 12px;
+      line-height: 1.25;
+    }
+    .step-card:nth-child(1) .step-title,
+    .step-card:nth-child(4) .step-title { color: var(--white); }
+    .step-card:nth-child(2) .step-title,
+    .step-card:nth-child(3) .step-title { color: var(--green); }
+
+    .step-desc {
+      font-family: var(--font-sans);
+      font-size: .82rem; line-height: 1.7;
+    }
+    .step-card:nth-child(1) .step-desc,
+    .step-card:nth-child(4) .step-desc { color: rgba(255,255,255,0.8); }
+    .step-card:nth-child(2) .step-desc,
+    .step-card:nth-child(3) .step-desc { color: var(--text-muted); }
+
+    /* ── Table Styling ────────────────────────────────────── */
+    .matrix-section {
+      background: var(--cream);
+      padding: 100px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .matrix-inner {
+      max-width: 1280px; margin: 0 auto;
+      padding: 0 64px;
+    }
+
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+      margin-top: 56px;
+      border: 1px solid var(--border);
+      background: var(--white);
+      box-shadow: 0 4px 16px rgba(0,0,0,.03);
+    }
+
+    .matrix-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-family: var(--font-sans);
+      font-size: .85rem;
+    }
+
+    .matrix-table th {
+      background: var(--green);
+      color: var(--cream);
+      font-family: var(--font-sans);
+      font-size: .75rem; font-weight: 600;
+      letter-spacing: .08em; text-transform: uppercase;
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .matrix-table td {
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-mid);
+      vertical-align: middle;
+    }
+
+    .matrix-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .matrix-table tr:hover td {
+      background: rgba(27, 58, 45, 0.02);
+    }
+
+    /* ── Helpdesk / Info ─────────────────────────────────── */
+    .help-section {
+      background: var(--white);
+      padding: 100px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .help-inner {
+      max-width: 1280px; margin: 0 auto;
+      padding: 0 64px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+    }
+
+    .help-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .help-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .help-card {
+      border: 1px solid var(--border);
+      padding: 36px 32px;
+      transition: transform var(--ease), box-shadow var(--ease);
+      border-radius: 4px;
+    }
+    .help-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 20px rgba(0,0,0,.06);
+    }
+    
+    .help-card:nth-child(1) { background: var(--brick); border-color: var(--brick); }
+    .help-card:nth-child(2) { background: var(--white); border-color: var(--border); }
+    .help-card:nth-child(3) { background: var(--cream); border-color: rgba(24,53,39,0.15); }
+    .help-card:nth-child(4) { background: var(--green); border-color: var(--green); }
+
+    .help-card-title {
+      font-family: var(--font-serif);
+      font-size: 1.35rem; font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .help-card:nth-child(1) .help-card-title,
+    .help-card:nth-child(4) .help-card-title { color: var(--white); }
+    .help-card:nth-child(2) .help-card-title,
+    .help-card:nth-child(3) .help-card-title { color: var(--green); }
+
+    .help-card-text {
+      font-family: var(--font-sans);
+      font-size: .83rem; line-height: 1.7;
+    }
+    .help-card:nth-child(1) .help-card-text,
+    .help-card:nth-child(4) .help-card-text { color: rgba(255,255,255,0.85); }
+    .help-card:nth-child(2) .help-card-text,
+    .help-card:nth-child(3) .help-card-text { color: var(--text-muted); }
+    
+    .help-card:nth-child(4) a { color: var(--cream) !important; }
+
+    /* ── Responsive ──────────────────────────────────────── */
+    @media (max-width: 1100px) {
+      .ad-hero__inner,
+      .steps-inner,
+      .matrix-inner,
+      .help-inner { padding: 0 40px; }
+    }
+    @media (max-width: 960px) {
+      .ad-hero {
+        padding-top: calc(var(--nav-h) + 40px);
+        padding-bottom: 40px;
+        min-height: auto;
+      }
+      .ad-hero__inner { grid-template-columns: 1fr; gap: 40px; }
+      .ad-hero__right { height: 380px; }
+      .steps-grid { grid-template-columns: repeat(2, 1fr); }
+      .help-inner { grid-template-columns: 1fr; gap: 40px; }
+    }
+    @media (max-width: 600px) {
+      .ad-hero__inner,
+      .steps-inner,
+      .matrix-inner,
+      .help-inner { padding: 0 24px; }
+      .steps-grid { grid-template-columns: 1fr; }
+      .help-cards { grid-template-columns: 1fr; }
+      .ad-hero__heading { font-size: 2.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAV ===== -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">
+        <img src="images/mes_logo.png" alt="MES Logo" class="nav__logo-img"/>
+        <div class="nav__logo-text">
+          <span class="nav__logo-top">MES Ponnani</span>
+          <span class="nav__logo-bot">College</span>
+        </div>
+      </a>
+      <ul class="nav__links" id="nav-links">
+        <li><a href="about.html"       class="nav__link">About</a></li>
+        <li><a href="academics.html"   class="nav__link">Academics</a></li>
+        <li><a href="admissions.html"  class="nav__link active">Admissions</a></li>
+        <li><a href="research.html"    class="nav__link">Research</a></li>
+        <li><a href="campus.html"      class="nav__link">Campus</a></li>
+        <li><a href="departments.html" class="nav__link">Departments</a></li>
+        <li><a href="contact.html"     class="nav__link">Contact</a></li>
+        <li class="nav__more-wrapper">
+          <button class="nav__more-btn" id="nav-more-btn" aria-haspopup="true" aria-expanded="false">
+            <span>More</span>
+            <svg class="nav__more-icon" width="10" height="6" viewBox="0 0 10 6" fill="none">
+              <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="nav__more-dropdown" id="nav-more-dropdown">
+            <a href="#" class="nav__more-link">Alumni Portal</a>
+            <a href="#" class="nav__more-link">IQAC</a>
+            <a href="#" class="nav__more-link">Gallery</a>
+            <a href="#" class="nav__more-link">Privacy Policy</a>
+            <a href="#" class="nav__more-link">Terms of Service</a>
+          </div>
+        </li>
+      </ul>
+      <a href="admissions.html" class="nav__apply">
+        <span>APPLY</span><span>NOW</span>
+      </a>
+      <button class="nav__hamburger" id="nav-hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="ad-hero" id="admissions-hero">
+    <div class="ad-hero__inner">
+      <div class="ad-hero__left reveal">
+        <p class="section-tag">Admissions</p>
+        <div class="section-rule"></div>
+        <h1 class="ad-hero__heading">
+          Begin Your<br>
+          <em>Academic Journey.</em>
+        </h1>
+        <p class="ad-hero__desc">
+          We welcome applications from students worldwide who display academic brilliance, creative capabilities, and a commitment to personal growth. Our transparent admission procedures follow merit criteria aligned with Calicut University schedules.
+        </p>
+        <a href="#admission-process" class="about__link-btn" id="ad-process-btn">
+          View Admission Guide
+          <span>↓</span>
+        </a>
+      </div>
+      <div class="ad-hero__right reveal reveal-d1">
+        <img src="images/business_hall.jpg" alt="MES Ponnani College Main Entrance and Business Hall"/>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ADMISSION STEPS ===== -->
+  <section class="steps-section" id="admission-process">
+    <div class="steps-inner">
+      <div class="reveal">
+        <p class="section-tag">Step-by-Step</p>
+        <div class="section-rule"></div>
+        <h2 class="about__heading">
+          How to<br>
+          <em>Apply</em>
+        </h2>
+      </div>
+
+      <div class="steps-grid">
+        <!-- Step 1 -->
+        <div class="step-card reveal">
+          <span class="step-num">01</span>
+          <h3 class="step-title">CAP Portal Registration</h3>
+          <p class="step-desc">
+            Register through the University of Calicut Centralised Admission Process (CAP) portal and choose MES Ponnani College as your preferred institution.
+          </p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="step-card reveal reveal-d1">
+          <span class="step-num">02</span>
+          <h3 class="step-title">College Portal Submit</h3>
+          <p class="step-desc">
+            Submit your details and CAP registration number on the MES Ponnani College admissions portal to complete your institutional application.
+          </p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="step-card reveal reveal-d2">
+          <span class="step-num">03</span>
+          <h3 class="step-title">Interview & Verification</h3>
+          <p class="step-desc">
+            Shortlisted candidates based on index marks will be called for document verification and interview at the campus.
+          </p>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="step-card reveal reveal-d3">
+          <span class="step-num">04</span>
+          <h3 class="step-title">Fee Payment & Confirm</h3>
+          <p class="step-desc">
+            Upon successful verification, secure your seat by paying the requisite semester fees to complete your admission process.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ELIGIBILITY & SEAT MATRIX ===== -->
+  <section class="matrix-section" id="eligibility-matrix">
+    <div class="matrix-inner">
+      <div class="reveal">
+        <p class="section-tag">Eligibility Matrix</p>
+        <div class="section-rule"></div>
+        <h2 class="about__heading">
+          Programmes &amp;<br>
+          <em>Requirements</em>
+        </h2>
+      </div>
+
+      <div class="table-container reveal">
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th>Programme</th>
+              <th>Category</th>
+              <th>Intake</th>
+              <th>Minimum Eligibility Criteria</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-weight: 600;">BSc Artificial Intelligence</td>
+              <td><span class="program-tag program-tag--self">Self-Financing</span></td>
+              <td>24 Seats</td>
+              <td>Plus Two / HSE with Mathematics or Computer Science as one of the subjects.</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 600;">BSc Computer Science</td>
+              <td><span class="program-tag program-tag--aided">Government Aided</span></td>
+              <td>36 Seats</td>
+              <td>HSE or equivalent with Mathematics or Computer Science subject combination.</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 600;">BSc Physics</td>
+              <td><span class="program-tag program-tag--aided">Government Aided</span></td>
+              <td>40 Seats</td>
+              <td>HSE or equivalent with Physics and Mathematics as core subjects.</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 600;">BCom Finance</td>
+              <td><span class="program-tag program-tag--aided">Government Aided</span></td>
+              <td>60 Seats</td>
+              <td>Plus Two with Commerce or eligible index marks for non-commerce streams.</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 600;">BBA</td>
+              <td><span class="program-tag program-tag--self">Self-Financing</span></td>
+              <td>40 Seats</td>
+              <td>HSE or equivalent certificate with minimum 45% aggregate score.</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 600;">BA English</td>
+              <td><span class="program-tag program-tag--aided">Government Aided</span></td>
+              <td>40 Seats</td>
+              <td>Plus Two / HSE with merit index marks calculated on English subject score.</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 600;">MSc Computer Science</td>
+              <td><span class="program-tag program-tag--aided">Government Aided</span></td>
+              <td>12 Seats</td>
+              <td>BSc Computer Science, BCA, or equivalent degree with minimum 50% marks.</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 600;">MCom Finance</td>
+              <td><span class="program-tag program-tag--aided">Government Aided</span></td>
+              <td>15 Seats</td>
+              <td>BCom or BBA degree from a recognized university with minimum 45% marks.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HELPDESK & CONTACT ===== -->
+  <section class="help-section" id="admission-help">
+    <div class="help-inner">
+      <div class="help-info reveal">
+        <p class="section-tag">Need Assistance?</p>
+        <div class="section-rule"></div>
+        <h2 class="about__heading">
+          Admissions<br>
+          <em>Helpdesk</em>
+        </h2>
+        <p class="hero__desc" style="margin-bottom: 0;">
+          Our dedicated admissions cell is here to support you at every stage of registration, application submission, fee payment structures, and hostel accommodation inquiries.
+        </p>
+      </div>
+
+      <div class="help-cards reveal reveal-d1">
+        <!-- Phone support -->
+        <div class="help-card">
+          <h3 class="help-card-title">Call Us</h3>
+          <p class="help-card-text">
+            Admissions Office:<br>
+            <strong>+91 (0) 494 266 6077</strong><br>
+            <span style="font-size: .75rem; opacity: .7;">Mon to Fri, 9:00 AM – 4:00 PM</span>
+          </p>
+        </div>
+
+        <!-- Email support -->
+        <div class="help-card">
+          <h3 class="help-card-title">Email Inquiries</h3>
+          <p class="help-card-text">
+            Primary Contact:<br>
+            <strong>admissions@mesponnanicollege.ac.in</strong><br>
+            <span style="font-size: .75rem; opacity: .7;">Typical response within 24 hours.</span>
+          </p>
+        </div>
+
+        <!-- Timings -->
+        <div class="help-card">
+          <h3 class="help-card-title">Office Hours</h3>
+          <p class="help-card-text">
+            General Inquiries desk:<br>
+            <strong>9:30 AM to 3:30 PM</strong><br>
+            <span style="font-size: .75rem; opacity: .7;">Closed on Saturdays &amp; Sundays.</span>
+          </p>
+        </div>
+
+        <!-- Downloads -->
+        <div class="help-card">
+          <h3 class="help-card-title">Prospectus</h3>
+          <p class="help-card-text">
+            Download Prospectus:<br>
+            <a href="#" style="color: var(--brick); font-weight: 600; text-decoration: underline;">UG Prospectus 2024 (PDF)</a><br>
+            <a href="#" style="color: var(--brick); font-weight: 600; text-decoration: underline;">PG Prospectus 2024 (PDF)</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer" id="footer">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <div class="footer__logo-top">MES Ponnani</div>
+        <div class="footer__logo-bot">College</div>
+      </div>
+      <nav class="footer__links">
+        <a href="#" class="footer__link">Privacy Policy</a>
+        <a href="#" class="footer__link">Terms of Service</a>
+        <a href="contact.html" class="footer__link">Contact Us</a>
+        <a href="#" class="footer__link">Alumni Portal</a>
+      </nav>
+      <div style="text-align:right;">
+        <a href="#" class="footer__link" style="display:block;margin-bottom:8px;">IQAC</a>
+        <p class="footer__copy">© 2024 MES Ponnani College. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

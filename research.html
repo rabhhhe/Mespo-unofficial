@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <script>
+    if (sessionStorage.getItem('site_authenticated') !== 'true') {
+      window.location.href = 'login.html';
+    }
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Research & Innovation — MES Ponnani College</title>
+  <meta name="description" content="Explore research and innovation at MES Ponnani College — state-of-the-art labs, industry collaborations, academic publications, and student research programs."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+
+  <style>
+    /* ============================================================
+       RESEARCH PAGE — PAGE-SPECIFIC STYLES
+       ============================================================ */
+
+    /* ---- Hero Section ----------------------------------------- */
+    .research-hero {
+      padding-top: var(--nav-h);
+      background: var(--cream);
+      min-height: 100vh;
+      overflow: hidden;
+    }
+    .research-hero__inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 64px;
+      min-height: calc(100vh - var(--nav-h));
+      display: grid;
+      grid-template-columns: 1fr 440px;
+      gap: 0;
+      align-items: start;
+      position: relative;
+    }
+
+    /* Left column: tag + heading + desc box */
+    .research-hero__left {
+      padding: 80px 60px 80px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 36px;
+    }
+    .research-hero__tag {
+      font-family: var(--font-sans);
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--brick);
+    }
+    .research-hero__heading {
+      font-family: var(--font-serif);
+      font-size: clamp(3.2rem, 5.2vw, 6rem);
+      font-weight: 500;
+      line-height: 1.0;
+      color: var(--green);
+    }
+    .research-hero__heading em {
+      font-style: italic;
+      color: var(--brick);
+    }
+    .research-hero__desc-box {
+      background: var(--white);
+      border: 1px solid var(--border);
+      padding: 32px 36px;
+      max-width: 560px;
+    }
+    .research-hero__desc {
+      font-family: var(--font-sans);
+      font-size: .88rem;
+      line-height: 1.85;
+      color: var(--text-muted);
+    }
+
+    /* Right column: tall image */
+    .research-hero__right {
+      position: relative;
+      /* stretch from top of hero to bottom */
+      align-self: stretch;
+      overflow: hidden;
+    }
+    .research-hero__img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    .research-hero__img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform .6s ease;
+    }
+    .research-hero__img:hover img {
+      transform: scale(1.03);
+    }
+    /* Subtle left-side fade blend */
+    .research-hero__img::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, var(--cream) 0%, rgba(244,240,230,0) 30%);
+      z-index: 1;
+    }
+
+    /* ---- Bento Grid Section ----------------------------------- */
+    .research-grid-section {
+      background: var(--cream);
+      padding: 0 0 100px;
+    }
+    .research-grid-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 64px;
+    }
+
+    /* 12-column asymmetric bento grid */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 32px;
+      border: none;
+    }
+
+    /* ---- Bento Card Base ------------------------------------- */
+    .bento-card {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 40px 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      transition: transform var(--ease), box-shadow var(--ease);
+      background: var(--white);
+    }
+    .bento-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,0,0,.08);
+      z-index: 2;
+      position: relative;
+    }
+
+    /* Individual Bento Card Positions & Styles */
+    .bento-card:nth-child(1) {
+      grid-column: 2 / span 4;
+      grid-row: 1;
+      background: var(--brick);
+      color: var(--white);
+      border-color: var(--brick);
+    }
+    .bento-card:nth-child(1) .bento-card__icon {
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.2);
+      color: var(--white);
+    }
+    .bento-card:nth-child(1) .bento-card__title {
+      color: var(--white);
+    }
+    .bento-card:nth-child(1) .bento-card__desc {
+      color: rgba(255,255,255,.8);
+    }
+
+    .bento-card:nth-child(2) {
+      grid-column: 7 / span 5;
+      grid-row: 1;
+      background: var(--cream-dark);
+    }
+    .bento-card:nth-child(2) .bento-card__icon {
+      background: var(--white);
+      border: 1px solid var(--border);
+      color: var(--green);
+    }
+    .bento-card:nth-child(2) .bento-card__title {
+      color: var(--text-dark);
+    }
+    .bento-card:nth-child(2) .bento-card__desc {
+      color: var(--text-muted);
+    }
+
+    .bento-card:nth-child(3) {
+      grid-column: 1 / span 4;
+      grid-row: 2;
+      background: var(--white);
+    }
+    .bento-card:nth-child(3) .bento-card__icon {
+      background: rgba(0,10,30,0.05);
+      border: 1px solid var(--border);
+      color: var(--green);
+    }
+    .bento-card:nth-child(3) .bento-card__title {
+      color: var(--text-dark);
+    }
+    .bento-card:nth-child(3) .bento-card__desc {
+      color: var(--text-muted);
+    }
+
+    .bento-card:nth-child(4) {
+      grid-column: 6 / span 3;
+      grid-row: 2;
+      background: var(--green);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 24px;
+      cursor: pointer;
+      border-color: var(--green);
+    }
+    .bento-card:nth-child(4):hover {
+      background: var(--green-dark);
+      border-color: var(--green-dark);
+    }
+    .bento-card:nth-child(4) .bento-card__cta-label {
+      font-family: var(--font-sans);
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--cream);
+    }
+    .bento-card:nth-child(4) .bento-card__cta-arrow {
+      width: 52px;
+      height: 52px;
+      border: 1.5px solid rgba(244,240,230,.3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--cream);
+      transition: border-color var(--ease), transform var(--ease);
+    }
+    .bento-card:nth-child(4):hover .bento-card__cta-arrow {
+      border-color: rgba(244,240,230,.7);
+      transform: translateY(4px);
+    }
+
+    .bento-card:nth-child(5) {
+      grid-column: 9 / span 4;
+      grid-row: 2;
+      background: var(--white);
+    }
+    .bento-card:nth-child(5) .bento-card__icon {
+      background: rgba(0,10,30,0.05);
+      border: 1px solid var(--border);
+      color: var(--green);
+    }
+    .bento-card:nth-child(5) .bento-card__title {
+      color: var(--text-dark);
+    }
+    .bento-card:nth-child(5) .bento-card__desc {
+      color: var(--text-muted);
+    }
+
+    .bento-card:nth-child(6) {
+      grid-column: 3 / span 5;
+      grid-row: 3;
+      background: var(--cream-dark);
+    }
+    .bento-card:nth-child(6) .bento-card__icon {
+      background: var(--white);
+      border: 1px solid var(--border);
+      color: var(--green);
+    }
+    .bento-card:nth-child(6) .bento-card__title {
+      color: var(--text-dark);
+    }
+    .bento-card:nth-child(6) .bento-card__desc {
+      color: var(--text-muted);
+    }
+
+    .bento-card:nth-child(7) {
+      grid-column: 8 / span 4;
+      grid-row: 3;
+      background: var(--brick);
+      color: var(--white);
+      border-color: var(--brick);
+    }
+    .bento-card:nth-child(7) .bento-card__icon {
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.2);
+      color: var(--white);
+    }
+    .bento-card:nth-child(7) .bento-card__title {
+      color: var(--white);
+    }
+    .bento-card:nth-child(7) .bento-card__desc {
+      color: rgba(255,255,255,.8);
+    }
+
+    /* ---- Card Sub-elements ---------------------------------- */
+    .bento-card__icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .bento-card__title {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      font-weight: 600;
+      line-height: 1.15;
+    }
+    .bento-card__desc {
+      font-family: var(--font-sans);
+      font-size: .82rem;
+      line-height: 1.8;
+      flex: 1;
+    }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width: 1100px) {
+      .research-hero__inner { padding: 0 40px; }
+      .research-grid-inner  { padding: 0 40px; }
+    }
+    @media (max-width: 960px) {
+      .research-grid-section {
+        padding-top: 48px;
+      }
+      .research-hero__inner {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+      .research-hero__left {
+        padding: 60px 0 40px;
+        gap: 28px;
+      }
+      .research-hero__right {
+        height: 55vw;
+        min-height: 300px;
+        position: relative;
+        align-self: auto;
+        overflow: hidden;
+      }
+      .research-hero__img {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+      .research-hero__img::before { display: none; }
+      .bento-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+      }
+      .bento-card {
+        grid-column: auto !important;
+        grid-row: auto !important;
+      }
+    }
+    @media (max-width: 600px) {
+      .research-hero__inner { padding: 0 24px; }
+      .research-grid-inner  { padding: 0 24px; }
+      .bento-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .bento-card {
+        grid-column: auto !important;
+        grid-row: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAV ===== -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">
+        <img src="images/mes_logo.png" alt="MES Logo" class="nav__logo-img"/>
+        <div class="nav__logo-text">
+          <span class="nav__logo-top">MES Ponnani</span>
+          <span class="nav__logo-bot">College</span>
+        </div>
+      </a>
+      <ul class="nav__links" id="nav-links">
+        <li><a href="about.html"       class="nav__link">About</a></li>
+        <li><a href="academics.html"   class="nav__link">Academics</a></li>
+        <li><a href="admissions.html"  class="nav__link">Admissions</a></li>
+        <li><a href="research.html"    class="nav__link active">Research</a></li>
+        <li><a href="campus.html"      class="nav__link">Campus</a></li>
+        <li><a href="departments.html" class="nav__link">Departments</a></li>
+        <li><a href="contact.html"     class="nav__link">Contact</a></li>
+        <li class="nav__more-wrapper">
+          <button class="nav__more-btn" id="nav-more-btn" aria-haspopup="true" aria-expanded="false">
+            <span>More</span>
+            <svg class="nav__more-icon" width="10" height="6" viewBox="0 0 10 6" fill="none">
+              <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="nav__more-dropdown" id="nav-more-dropdown">
+            <a href="#" class="nav__more-link">Alumni Portal</a>
+            <a href="#" class="nav__more-link">IQAC</a>
+            <a href="#" class="nav__more-link">Gallery</a>
+            <a href="#" class="nav__more-link">Privacy Policy</a>
+            <a href="#" class="nav__more-link">Terms of Service</a>
+          </div>
+        </li>
+      </ul>
+      <a href="admissions.html" class="nav__apply">
+        <span>APPLY</span><span>NOW</span>
+      </a>
+      <button class="nav__hamburger" id="nav-hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== RESEARCH HERO ===== -->
+  <section class="research-hero" id="research-hero">
+    <div class="research-hero__inner">
+
+      <!-- Left: section tag, heading, description box -->
+      <div class="research-hero__left reveal">
+        <div>
+          <p class="research-hero__tag">Research &amp; Innovation</p>
+          <div class="section-rule"></div>
+        </div>
+        <h1 class="research-hero__heading">
+          Advancing<br>
+          Knowledge,<br>
+          <em>Creating<br>Impact.</em>
+        </h1>
+        <div class="research-hero__desc-box">
+          <p class="research-hero__desc">At MES Ponnani College, we foster a vibrant ecosystem of discovery. Our commitment to interdisciplinary learning and cutting-edge research empowers students and faculty to address global challenges and contribute meaningfully to scholarly discourse.</p>
+        </div>
+      </div>
+
+      <!-- Right: tall research lab image -->
+      <div class="research-hero__right">
+        <div class="research-hero__img">
+          <img src="images/research_lab.jpg" alt="MES Ponnani College Research Laboratory"/>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== BENTO GRID ===== -->
+  <section class="research-grid-section" id="research-grid">
+    <div class="research-grid-inner">
+      <div class="bento-grid">
+
+        <!-- Card 1 — Research Laboratories (cream) -->
+        <div class="bento-card bento-card--cream reveal">
+          <div class="bento-card__icon">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+              <path d="M8 1v8L4 17a1 1 0 00.9 1.5h12.2A1 1 0 0018 17l-4-8V1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M7.5 1h7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <circle cx="9.5" cy="13.5" r="1" fill="currentColor"/>
+              <circle cx="13" cy="15.5" r="1.2" fill="currentColor"/>
+            </svg>
+          </div>
+          <h2 class="bento-card__title">Research Laboratories</h2>
+          <p class="bento-card__desc">State-of-the-art facilities for discovery, equipped with technology to support groundbreaking scientific inquiry.</p>
+        </div>
+
+        <!-- Card 2 — Innovation Projects (cream) -->
+        <div class="bento-card bento-card--cream reveal reveal-d1">
+          <div class="bento-card__icon">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+              <circle cx="11" cy="11" r="9" stroke="currentColor" stroke-width="1.4"/>
+              <path d="M8 11l2 2 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M11 2v2M11 18v2M2 11h2M18 11h2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h2 class="bento-card__title">Innovation Projects</h2>
+          <p class="bento-card__desc">Pioneering solutions for real-world challenges through collaborative, interdisciplinary approaches and creative thinking.</p>
+        </div>
+
+        <!-- Card 3 — Academic Publications (cream) -->
+        <div class="bento-card bento-card--cream reveal reveal-d2">
+          <div class="bento-card__icon">
+            <svg width="20" height="22" viewBox="0 0 20 22" fill="none">
+              <rect x="1" y="1" width="18" height="20" rx="1.5" stroke="currentColor" stroke-width="1.4"/>
+              <path d="M5 7h10M5 11h10M5 15h6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h2 class="bento-card__title">Academic Publications</h2>
+          <p class="bento-card__desc">Contributing to global scholarly discourse with rigorous research published in high-impact academic journals.</p>
+        </div>
+
+        <!-- Card 4 — EXPLORE RESEARCH CTA (dark green) -->
+        <div class="bento-card bento-card--green reveal" id="explore-research-btn" role="link" tabindex="0" onclick="window.location='research.html'">
+          <div class="bento-card__cta-arrow">
+            <!-- Down arrow -->
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <path d="M9 1v16M2 10l7 7 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span class="bento-card__cta-label">Explore Research</span>
+        </div>
+
+        <!-- Card 5 — Industry Collaboration (cream) -->
+        <div class="bento-card bento-card--cream reveal reveal-d1">
+          <div class="bento-card__icon">
+            <svg width="22" height="20" viewBox="0 0 22 20" fill="none">
+              <rect x="1" y="7" width="9" height="12" rx="1" stroke="currentColor" stroke-width="1.4"/>
+              <rect x="12" y="1" width="9" height="18" rx="1" stroke="currentColor" stroke-width="1.4"/>
+              <path d="M4 11h3M4 15h3M15 5h3M15 9h3M15 13h3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h2 class="bento-card__title">Industry Collaboration</h2>
+          <p class="bento-card__desc">Bridging academia and professional practice through strategic partnerships that drive technological advancements.</p>
+        </div>
+
+        <!-- Card 6 — Expert Faculty (cream) -->
+        <div class="bento-card bento-card--cream reveal reveal-d2">
+          <div class="bento-card__icon">
+            <svg width="22" height="20" viewBox="0 0 22 20" fill="none">
+              <circle cx="11" cy="6" r="4" stroke="currentColor" stroke-width="1.4"/>
+              <path d="M2 19c0-4 4-7 9-7s9 3 9 7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <path d="M14 8l2 1.5-2 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h2 class="bento-card__title">Expert Faculty</h2>
+          <p class="bento-card__desc">Guided by distinguished researchers and mentors dedicated to cultivating intellectual curiosity and academic excellence.</p>
+        </div>
+
+        <!-- Card 7 — Student Research (brick red) -->
+        <div class="bento-card bento-card--brick reveal">
+          <div class="bento-card__icon">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+              <path d="M1 8l10-6 10 6-10 6-10-6z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+              <path d="M5 10.5v6c0 1.5 2.7 3 6 3s6-1.5 6-3v-6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <path d="M20 8v6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h2 class="bento-card__title">Student Research</h2>
+          <p class="bento-card__desc">Empowering the next generation of innovators with hands-on research opportunities and dedicated funding programs.</p>
+        </div>
+
+      </div><!-- /.bento-grid -->
+    </div><!-- /.research-grid-inner -->
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer" id="footer">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <div class="footer__logo-top">MES Ponnani</div>
+        <div class="footer__logo-bot">College</div>
+      </div>
+      <nav class="footer__links">
+        <a href="#" class="footer__link">Privacy Policy</a>
+        <a href="#" class="footer__link">Terms of Service</a>
+        <a href="contact.html" class="footer__link">Contact Us</a>
+        <a href="#" class="footer__link">Alumni Portal</a>
+      </nav>
+      <div style="text-align:right;">
+        <a href="#" class="footer__link" style="display:block;margin-bottom:8px;">IQAC</a>
+        <p class="footer__copy">© 2024 MES Ponnani College. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

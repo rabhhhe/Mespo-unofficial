@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <script>
+    if (sessionStorage.getItem('site_authenticated') !== 'true') {
+      window.location.href = 'login.html';
+    }
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Academics — Programmes & Facilities | MES Ponnani College</title>
+  <meta name="description" content="Explore undergraduate and postgraduate programs at MES Ponnani College. Learn about our advanced laboratory facilities, smart classrooms, and library resources."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+
+  <style>
+    /* ============================================================
+       ACADEMICS PAGE — EXTRA STYLES
+       ============================================================ */
+
+    /* ── Page Hero ────────────────────────────────────────── */
+    .ac-hero {
+      padding-top: var(--nav-h);
+      background: var(--cream);
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+
+
+    .ac-hero__inner {
+      max-width: 1280px; margin: 0 auto;
+      padding: 0 64px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      width: 100%;
+      position: relative; z-index: 1;
+      align-items: center;
+    }
+
+    .ac-hero__left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .ac-hero__heading {
+      font-family: var(--font-serif);
+      font-size: clamp(3.2rem, 5.5vw, 5.5rem);
+      font-weight: 500;
+      line-height: 1.05;
+      color: var(--green);
+      margin-bottom: 24px;
+    }
+
+    .ac-hero__heading em {
+      font-style: italic;
+      color: var(--brick);
+    }
+
+    .ac-hero__desc {
+      font-family: var(--font-sans);
+      font-size: .92rem;
+      line-height: 1.85;
+      color: var(--text-muted);
+      max-width: 520px;
+      margin-bottom: 32px;
+    }
+
+    .ac-hero__right {
+      position: relative;
+      height: 520px;
+      overflow: hidden;
+      box-shadow: 0 12px 48px rgba(0,0,0,.12);
+    }
+
+    .ac-hero__right img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .6s ease;
+    }
+    .ac-hero__right:hover img {
+      transform: scale(1.03);
+    }
+
+    /* ── Programme List ───────────────────────────────────── */
+    .programs-section {
+      background: var(--white);
+      padding: 100px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .programs-inner {
+      max-width: 1280px; margin: 0 auto;
+      padding: 0 64px;
+    }
+
+    .programs-category {
+      margin-bottom: 80px;
+    }
+    .programs-category:last-child {
+      margin-bottom: 0;
+    }
+
+    .category-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 500;
+      color: var(--green);
+      margin-bottom: 36px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .category-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .programs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .program-card {
+      border: 1px solid var(--border);
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 280px;
+      transition: transform var(--ease), box-shadow var(--ease);
+      border-radius: 4px;
+    }
+    .program-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0,0,0,.08);
+    }
+
+    .program-card:nth-child(1), .program-card:nth-child(5) { background: var(--green); border-color: var(--green); }
+    .program-card:nth-child(2), .program-card:nth-child(6), .program-card:nth-child(9) { background: var(--cream); border-color: rgba(154,69,44,0.15); }
+    .program-card:nth-child(3), .program-card:nth-child(7) { background: var(--brick); border-color: var(--brick); }
+    .program-card:nth-child(4), .program-card:nth-child(8) { background: var(--white); border-color: var(--border); }
+
+    .program-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .program-duration {
+      font-family: var(--font-sans);
+      font-size: .62rem; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+    }
+    .program-card:nth-child(1) .program-duration,
+    .program-card:nth-child(3) .program-duration,
+    .program-card:nth-child(5) .program-duration,
+    .program-card:nth-child(7) .program-duration { color: rgba(255,255,255,0.7); }
+    .program-card:nth-child(2) .program-duration,
+    .program-card:nth-child(4) .program-duration,
+    .program-card:nth-child(6) .program-duration,
+    .program-card:nth-child(8) .program-duration,
+    .program-card:nth-child(9) .program-duration { color: var(--text-muted); }
+
+    .program-tag {
+      font-family: var(--font-sans);
+      font-size: .58rem; font-weight: 600;
+      letter-spacing: .08em; text-transform: uppercase;
+      padding: 4px 8px;
+      border-radius: 2px;
+    }
+    .program-card:nth-child(1) .program-tag,
+    .program-card:nth-child(3) .program-tag,
+    .program-card:nth-child(5) .program-tag,
+    .program-card:nth-child(7) .program-tag {
+      background: rgba(255,255,255,0.15);
+      color: var(--white);
+    }
+    .program-card:nth-child(2) .program-tag,
+    .program-card:nth-child(4) .program-tag,
+    .program-card:nth-child(6) .program-tag,
+    .program-card:nth-child(8) .program-tag,
+    .program-card:nth-child(9) .program-tag {
+      background: rgba(26,58,45,0.06);
+      color: var(--green);
+    }
+
+    .program-title {
+      font-family: var(--font-serif);
+      font-size: 1.5rem; font-weight: 600;
+      line-height: 1.25;
+      margin-bottom: 12px;
+    }
+    .program-card:nth-child(1) .program-title,
+    .program-card:nth-child(3) .program-title,
+    .program-card:nth-child(5) .program-title,
+    .program-card:nth-child(7) .program-title { color: var(--white); }
+    .program-card:nth-child(2) .program-title,
+    .program-card:nth-child(4) .program-title,
+    .program-card:nth-child(6) .program-title,
+    .program-card:nth-child(8) .program-title,
+    .program-card:nth-child(9) .program-title { color: var(--text-dark); }
+
+    .program-desc {
+      font-family: var(--font-sans);
+      font-size: .83rem; line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    .program-card:nth-child(1) .program-desc,
+    .program-card:nth-child(3) .program-desc,
+    .program-card:nth-child(5) .program-desc,
+    .program-card:nth-child(7) .program-desc { color: rgba(255,255,255,0.8); }
+    .program-card:nth-child(2) .program-desc,
+    .program-card:nth-child(4) .program-desc,
+    .program-card:nth-child(6) .program-desc,
+    .program-card:nth-child(8) .program-desc,
+    .program-card:nth-child(9) .program-desc { color: var(--text-muted); }
+
+    .program-link {
+      font-family: var(--font-sans);
+      font-size: .72rem; font-weight: 600;
+      letter-spacing: .08em; text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: gap var(--ease);
+    }
+    .program-card:nth-child(1) .program-link,
+    .program-card:nth-child(3) .program-link,
+    .program-card:nth-child(5) .program-link,
+    .program-card:nth-child(7) .program-link { color: var(--cream); }
+    .program-card:nth-child(2) .program-link,
+    .program-card:nth-child(4) .program-link,
+    .program-card:nth-child(6) .program-link,
+    .program-card:nth-child(8) .program-link,
+    .program-card:nth-child(9) .program-link { color: var(--brick); }
+
+    .program-card:hover .program-link {
+      gap: 12px;
+    }
+
+    /* ── Facilities Showcase ─────────────────────────────── */
+    .facilities-section {
+      background: var(--cream);
+      padding: 100px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .facilities-inner {
+      max-width: 1280px; margin: 0 auto;
+      padding: 0 64px;
+    }
+
+    .facilities-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+      margin-top: 56px;
+    }
+
+    .facility-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,.03);
+    }
+
+    .facility-img {
+      height: 280px;
+      overflow: hidden;
+    }
+    .facility-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .5s ease;
+    }
+    .facility-card:hover .facility-img img {
+      transform: scale(1.04);
+    }
+
+    .facility-body {
+      padding: 32px;
+    }
+
+    .facility-title {
+      font-family: var(--font-serif);
+      font-size: 1.6rem; font-weight: 600;
+      color: var(--green);
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+
+    .facility-desc {
+      font-family: var(--font-sans);
+      font-size: .85rem; line-height: 1.75;
+      color: var(--text-muted);
+    }
+
+    /* ── Responsive ──────────────────────────────────────── */
+    @media (max-width: 1100px) {
+      .ac-hero__inner,
+      .programs-inner,
+      .facilities-inner { padding: 0 40px; }
+    }
+    @media (max-width: 960px) {
+      .ac-hero {
+        padding-top: calc(var(--nav-h) + 40px);
+        padding-bottom: 40px;
+        min-height: auto;
+      }
+      .ac-hero__inner { grid-template-columns: 1fr; gap: 40px; }
+      .ac-hero__right { height: 380px; }
+      .programs-grid { grid-template-columns: repeat(2, 1fr); }
+      .facilities-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .ac-hero__inner,
+      .programs-inner,
+      .facilities-inner { padding: 0 24px; }
+      .programs-grid { grid-template-columns: 1fr; }
+      .ac-hero__heading { font-size: 2.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAV ===== -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">
+        <img src="images/mes_logo.png" alt="MES Logo" class="nav__logo-img"/>
+        <div class="nav__logo-text">
+          <span class="nav__logo-top">MES Ponnani</span>
+          <span class="nav__logo-bot">College</span>
+        </div>
+      </a>
+      <ul class="nav__links" id="nav-links">
+        <li><a href="about.html"       class="nav__link">About</a></li>
+        <li><a href="academics.html"   class="nav__link active">Academics</a></li>
+        <li><a href="admissions.html"  class="nav__link">Admissions</a></li>
+        <li><a href="research.html"    class="nav__link">Research</a></li>
+        <li><a href="campus.html"      class="nav__link">Campus</a></li>
+        <li><a href="departments.html" class="nav__link">Departments</a></li>
+        <li><a href="contact.html"     class="nav__link">Contact</a></li>
+        <li class="nav__more-wrapper">
+          <button class="nav__more-btn" id="nav-more-btn" aria-haspopup="true" aria-expanded="false">
+            <span>More</span>
+            <svg class="nav__more-icon" width="10" height="6" viewBox="0 0 10 6" fill="none">
+              <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="nav__more-dropdown" id="nav-more-dropdown">
+            <a href="#" class="nav__more-link">Alumni Portal</a>
+            <a href="#" class="nav__more-link">IQAC</a>
+            <a href="#" class="nav__more-link">Gallery</a>
+            <a href="#" class="nav__more-link">Privacy Policy</a>
+            <a href="#" class="nav__more-link">Terms of Service</a>
+          </div>
+        </li>
+      </ul>
+      <a href="admissions.html" class="nav__apply">
+        <span>APPLY</span><span>NOW</span>
+      </a>
+      <button class="nav__hamburger" id="nav-hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="ac-hero" id="academics-hero">
+    <div class="ac-hero__inner">
+      <div class="ac-hero__left reveal">
+        <p class="section-tag">Academics</p>
+        <div class="section-rule"></div>
+        <h1 class="ac-hero__heading">
+          Sculpting Leaders<br>
+          <em>of Tomorrow.</em>
+        </h1>
+        <p class="ac-hero__desc">
+          MES Ponnani College offers highly structured academic programmes that stimulate intellectual curiosity, inspire scientific research, and prepare students for advanced global careers. Explore our diverse portfolio of undergraduate and postgraduate courses.
+        </p>
+        <a href="#programmes" class="about__link-btn" id="ac-explore-btn">
+          Explore Programmes
+          <span>↓</span>
+        </a>
+      </div>
+      <div class="ac-hero__right reveal reveal-d1">
+        <img src="images/academics_hero.png" alt="MES Ponnani College Academics Seminar Room"/>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROGRAMMES LIST ===== -->
+  <section class="programs-section" id="programmes">
+    <div class="programs-inner">
+      
+      <!-- Undergraduate Category -->
+      <div class="programs-category">
+        <h2 class="category-title reveal">Undergraduate Programmes</h2>
+        
+        <div class="programs-grid">
+          <!-- BSc AI -->
+          <div class="program-card reveal">
+            <div>
+              <div class="program-meta">
+                <span class="program-duration">3 Years</span>
+                <span class="program-tag program-tag--self">Self-Financing</span>
+              </div>
+              <h3 class="program-title">BSc Artificial Intelligence</h3>
+              <p class="program-desc">Focuses on Machine Learning, neural networks, computer vision, data analysis, and predictive modeling using modern frameworks.</p>
+            </div>
+            <a href="admissions.html" class="program-link">Apply Now <span>→</span></a>
+          </div>
+
+          <!-- BSc CS -->
+          <div class="program-card reveal reveal-d1">
+            <div>
+              <div class="program-meta">
+                <span class="program-duration">3 Years</span>
+                <span class="program-tag program-tag--aided">Government Aided</span>
+              </div>
+              <h3 class="program-title">BSc Computer Science</h3>
+              <p class="program-desc">Covers software engineering, database architectures, operating systems, and web technologies for modern software developments.</p>
+            </div>
+            <a href="admissions.html" class="program-link">Apply Now <span>→</span></a>
+          </div>
+
+          <!-- BSc Physics -->
+          <div class="program-card reveal reveal-d2">
+            <div>
+              <div class="program-meta">
+                <span class="program-duration">3 Years</span>
+                <span class="program-tag program-tag--aided">Government Aided</span>
+              </div>
+              <h3 class="program-title">BSc Physics</h3>
+              <p class="program-desc">Deep-dives into quantum mechanics, thermodynamics, electromagnetism, and electronic instrumentation systems.</p>
+            </div>
+            <a href="admissions.html" class="program-link">Apply Now <span>→</span></a>
+          </div>
+
+          <!-- BCom Finance -->
+          <div class="program-card reveal">
+            <div>
+              <div class="program-meta">
+                <span class="program-duration">3 Years</span>
+                <span class="program-tag program-tag--aided">Government Aided</span>
+              </div>
+              <h3 class="program-title">BCom Finance</h3>
+              <p class="program-desc">Equips students with rigorous knowledge in accounting practices, tax calculations, audit principles, and financial analytics.</p>
+            </div>
+            <a href="admissions.html" class="program-link">Apply Now <span>→</span></a>
+          </div>
+
+          <!-- BBA -->
+          <div class="program-card reveal reveal-d1">
+            <div>
+              <div class="program-meta">
+                <span class="program-duration">3 Years</span>
+                <span class="program-tag program-tag--self">Self-Financing</span>
+              </div>
+              <h3 class="program-title">BBA</h3>
+              <p class="program-desc">Provides a solid foundation in marketing management, human resource planning, entrepreneurship, and strategy execution.</p>
+            </div>
+            <a href="admissions.html" class="program-link">Apply Now <span>→</span></a>
+          </div>
+
+          <!-- BA English -->
+          <div class="program-card reveal reveal-d2">
+            <div>
+              <div class="program-meta">
+                <span class="program-duration">3 Years</span>
+                <span class="program-tag program-tag--aided">Government Aided</span>
+              </div>
+              <h3 class="program-title">BA English</h3>
+              <p class="program-desc">Engages in critical studies of world literature, post-colonial writings, creative communications, and linguistics.</p>
+            </div>
+            <a href="admissions.html" class="program-link">Apply Now <span>→</span></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Postgraduate Category -->
+      <div class="programs-category">
+        <h2 class="category-title reveal">Postgraduate Programmes</h2>
+        
+        <div class="programs-grid">
+          <!-- MSc Computer Science -->
+          <div class="program-card reveal">
+            <div>
+              <div class="program-meta">
+                <span class="program-duration">2 Years</span>
+                <span class="program-tag program-tag--aided">Government Aided</span>
+              </div>
+              <h3 class="program-title">MSc Computer Science</h3>
+              <p class="program-desc">Advanced study in distributed systems, cryptography, artificial intelligence algorithms, and research methodologies.</p>
+            </div>
+            <a href="admissions.html" class="program-link">Apply Now <span>→</span></a>
+          </div>
+
+          <!-- MCom Finance -->
+          <div class="program-card reveal reveal-d1">
+            <div>
+              <div class="program-meta">
+                <span class="program-duration">2 Years</span>
+                <span class="program-tag program-tag--aided">Government Aided</span>
+              </div>
+              <h3 class="program-title">MCom Finance</h3>
+              <p class="program-desc">Advanced coursework in security analysis, portfolio management, international financial environments, and research.</p>
+            </div>
+            <a href="admissions.html" class="program-link">Apply Now <span>→</span></a>
+          </div>
+
+          <!-- MA English -->
+          <div class="program-card reveal reveal-d2">
+            <div>
+              <div class="program-meta">
+                <span class="program-duration">2 Years</span>
+                <span class="program-tag program-tag--self">Self-Financing</span>
+              </div>
+              <h3 class="program-title">MA English Literature</h3>
+              <p class="program-desc">In-depth research and textual analysis in comparative literature, gender studies, cultural theories, and modern linguistics.</p>
+            </div>
+            <a href="admissions.html" class="program-link">Apply Now <span>→</span></a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== FACILITIES SHOWCASE ===== -->
+  <section class="facilities-section" id="facilities">
+    <div class="facilities-inner">
+      <div class="reveal">
+        <p class="section-tag">Facilities</p>
+        <div class="section-rule"></div>
+        <h2 class="about__heading">
+          State-of-the-Art<br>
+          <em>Academic Infrastructure</em>
+        </h2>
+      </div>
+
+      <div class="facilities-grid">
+        <!-- Geology Petrology Lab -->
+        <div class="facility-card reveal">
+          <div class="facility-img">
+            <img src="images/petrology_lab.jpg" alt="Geology Department Petrology Laboratory at MES Ponnani"/>
+          </div>
+          <div class="facility-body">
+            <h3 class="facility-title">Geology Petrology Lab</h3>
+            <p class="facility-desc">
+              Equipped with high-precision polarizing microscopes, rock thin-section preparation tools, and an extensive collection of mineral and rock specimens for detailed petrographic analysis.
+            </p>
+          </div>
+        </div>
+
+        <!-- Computer Science Lab -->
+        <div class="facility-card reveal reveal-d1">
+          <div class="facility-img">
+            <img src="images/cs_lab.jpg" alt="Computer Science Programming Lab at MES Ponnani"/>
+          </div>
+          <div class="facility-body">
+            <h3 class="facility-title">Computer Science Lab</h3>
+            <p class="facility-desc">
+              High-speed workstations with Linux/Windows environments, configured with the latest developer toolchains for software programming, web design, and database administration.
+            </p>
+          </div>
+        </div>
+
+        <!-- Central Library -->
+        <div class="facility-card reveal">
+          <div class="facility-img">
+            <img src="images/academic_library.jpg" alt="Automated Central Library at MES Ponnani College"/>
+          </div>
+          <div class="facility-body">
+            <h3 class="facility-title">Central Library &amp; Archives</h3>
+            <p class="facility-desc">
+              Houses over 50,000 reference volumes, subscription journals, and digital research databases (INFLIBNET, N-LIST) with automated cataloging systems.
+            </p>
+          </div>
+        </div>
+
+        <!-- Science Labs -->
+        <div class="facility-card reveal reveal-d1">
+          <div class="facility-img">
+            <img src="images/physics_lab.jpg" alt="Physics Practical Laboratory at MES Ponnani"/>
+          </div>
+          <div class="facility-body">
+            <h3 class="facility-title">Physics &amp; Chemistry Labs</h3>
+            <p class="facility-desc">
+              Fully stocked experimental apparatus for spectroscopy, electromagnetism study, digital electronics design, and chemical analysis, supporting both UG and research streams.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer" id="footer">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <div class="footer__logo-top">MES Ponnani</div>
+        <div class="footer__logo-bot">College</div>
+      </div>
+      <nav class="footer__links">
+        <a href="#" class="footer__link">Privacy Policy</a>
+        <a href="#" class="footer__link">Terms of Service</a>
+        <a href="contact.html" class="footer__link">Contact Us</a>
+        <a href="#" class="footer__link">Alumni Portal</a>
+      </nav>
+      <div style="text-align:right;">
+        <a href="#" class="footer__link" style="display:block;margin-bottom:8px;">IQAC</a>
+        <p class="footer__copy">© 2024 MES Ponnani College. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

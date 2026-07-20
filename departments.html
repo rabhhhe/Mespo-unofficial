@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <script>
+    if (sessionStorage.getItem('site_authenticated') !== 'true') {
+      window.location.href = 'login.html';
+    }
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Departments - MES Ponnani College</title>
+  <meta name="description" content="Explore all academic departments at MES Ponnani College. From Artificial Intelligence and Computer Science to Commerce and the Sciences - a multidisciplinary ecosystem of excellence."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+
+  <style>
+    /* ===== DEPARTMENTS HERO ===== */
+    .dept-hero { background: var(--cream); padding: 120px 0 0; }
+    .dept-hero__inner { max-width: 1280px; margin: 0 auto; padding: 0 64px; }
+    .dept-hero__top { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; margin-bottom: 56px; }
+    .dept-hero__heading { font-family: var(--font-serif); font-size: clamp(3.2rem, 5.5vw, 5.2rem); font-weight: 500; line-height: 1.05; color: var(--green); }
+    .dept-hero__heading em { font-style: italic; color: var(--brick); }
+    .dept-hero__desc { font-family: var(--font-sans); font-size: .9rem; line-height: 1.8; color: var(--text-muted); max-width: 480px; }
+
+    /* STATS ROW */
+    .dept-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 80px; }
+    .dept-stat { padding: 40px; display: flex; flex-direction: column; justify-content: center; min-height: 176px; }
+    .dept-stat__num { font-family: var(--font-serif); font-size: 3.5rem; font-weight: 700; line-height: 1.1; margin-bottom: 8px; }
+    .dept-stat__label { font-family: var(--font-sans); font-size: .72rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; }
+
+    .dept-stat--green { background: var(--green); color: var(--white); }
+    .dept-stat--green .dept-stat__num { color: var(--white); }
+    .dept-stat--green .dept-stat__label { color: rgba(255,255,255,0.7); }
+
+    .dept-stat--brick { background: var(--brick); color: var(--white); }
+    .dept-stat--brick .dept-stat__num { color: var(--white); }
+    .dept-stat--brick .dept-stat__label { color: rgba(255,255,255,0.7); }
+
+    .dept-stat--cream { background: var(--white); color: var(--text-dark); border: 1px solid var(--border); }
+    .dept-stat--cream .dept-stat__num { color: var(--green); }
+    .dept-stat--cream .dept-stat__label { color: var(--text-muted); }
+
+    /* FEATURED DEPARTMENTS - LAYERED STAGGERED GRID */
+    .dept-featured { background: var(--cream); padding: 100px 0; }
+    .dept-featured__inner { max-width: 1280px; margin: 0 auto; padding: 0 64px; display: grid; grid-template-columns: 1fr 466px; gap: 48px; align-items: start; }
+    .dept-featured__img-wrap { height: 800px; overflow: hidden; position: relative; border-radius: 4px; box-shadow: 0 20px 40px rgba(0,0,0,.1); }
+    .dept-featured__img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    
+    .dept-featured__cards { position: relative; height: 880px; width: 466px; }
+    .dept-feat-card { position: absolute; width: 466px; padding: 40px; border-radius: 4px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1); display: flex; flex-direction: column; gap: 16px; transition: transform var(--ease); }
+    .dept-feat-card:hover { transform: translateY(-4px); z-index: 10 !important; }
+    
+    .dept-feat-card:nth-child(1) { top: 0; left: 33px; z-index: 3; }
+    .dept-feat-card:nth-child(2) { top: 299px; left: -41px; z-index: 4; }
+    .dept-feat-card:nth-child(3) { top: 600px; left: -115px; z-index: 5; }
+
+    .dept-feat-card--green { background: var(--green); color: var(--white); }
+    .dept-feat-card--green .dept-feat-card__title { color: var(--white); }
+    .dept-feat-card--green .dept-feat-card__desc { color: rgba(255,255,255,0.8); }
+    
+    .dept-feat-card--cream { background: var(--cream); color: var(--text-dark); border: 1px solid var(--border); }
+    .dept-feat-card--cream .dept-feat-card__title { color: var(--text-dark); }
+    .dept-feat-card--cream .dept-feat-card__desc { color: var(--text-muted); }
+    
+    .dept-feat-card--brick { background: var(--brick); color: var(--white); }
+    .dept-feat-card--brick .dept-feat-card__title { color: var(--white); }
+    .dept-feat-card--brick .dept-feat-card__desc { color: rgba(255,255,255,0.85); }
+
+    .dept-feat-card__faculty-wrap { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 12px; }
+    .dept-feat-card--cream .dept-feat-card__faculty-wrap { border-bottom-color: rgba(26,58,45,0.1); }
+    .dept-feat-card__faculty { font-family: var(--font-sans); font-size: .62rem; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; color: rgba(255,255,255,0.6); }
+    .dept-feat-card--cream .dept-feat-card__faculty { color: var(--text-muted); }
+    .dept-feat-card__icon { width: 28px; height: 28px; flex-shrink: 0; color: var(--white); }
+    .dept-feat-card--cream .dept-feat-card__icon { color: var(--green); }
+    .dept-feat-card__icon img { width: 100%; height: 100%; object-fit: contain; }
+
+    .dept-feat-card__title { font-family: var(--font-serif); font-size: 2rem; font-weight: 600; line-height: 1.15; }
+    .dept-feat-card__desc { font-family: var(--font-sans); font-size: .84rem; line-height: 1.7; }
+    .dept-feat-card__link { font-family: var(--font-sans); font-size: .72rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--white); align-self: start; transition: transform var(--ease); }
+    .dept-feat-card--cream .dept-feat-card__link { color: var(--green); }
+    .dept-feat-card__link:hover { transform: translateX(4px); }
+
+    /* TILES GRID */
+    .dept-grid-section { background: var(--cream); padding: 0 0 100px; }
+    .dept-grid-section__inner { max-width: 1280px; margin: 0 auto; padding: 0 64px; }
+    .dept-tile-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .dept-tile { padding: 40px; border: 1px solid var(--border); border-radius: 4px; display: flex; flex-direction: column; gap: 20px; transition: transform var(--ease), box-shadow var(--ease); }
+    .dept-tile:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,.08); }
+    
+    .dept-tile--green { background: var(--green); color: var(--white); border-color: var(--green); }
+    .dept-tile--brick { background: var(--brick); color: var(--white); border-color: var(--brick); }
+    .dept-tile--cream { background: var(--cream-dark); color: var(--text-dark); border-color: var(--border); }
+    .dept-tile--white { background: var(--white); color: var(--text-dark); border-color: var(--border); }
+
+    .dept-tile__icon-wrap { width: 36px; height: 36px; }
+    .dept-tile__icon-wrap img { width: 100%; height: 100%; object-fit: contain; }
+    .dept-tile__name { font-family: var(--font-serif); font-size: 1.4rem; font-weight: 600; }
+    .dept-tile__link { font-family: var(--font-sans); font-size: .7rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--cream); align-self: start; transition: transform var(--ease); }
+    .dept-tile--cream .dept-tile__link, .dept-tile--white .dept-tile__link { color: var(--green); }
+    .dept-tile__link:hover { transform: translateX(4px); }
+
+    /* DIRECTORY */
+    .dept-directory { background: var(--white); padding: 100px 0; border-top: 1px solid var(--border); }
+    .dept-directory__inner { max-width: 1280px; margin: 0 auto; padding: 0 64px; display: flex; flex-direction: column; gap: 48px; }
+    .dept-directory__header { border-bottom: 2px solid var(--border); padding-bottom: 24px; }
+    .dept-directory__heading { font-family: var(--font-serif); font-size: 2.2rem; font-weight: 600; color: var(--green); }
+    .dept-directory__rule { width: 80px; height: 4px; background: var(--brick); margin-top: 12px; }
+    
+    .dept-directory__columns { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; }
+    .dept-dir-column { display: flex; flex-direction: column; gap: 16px; }
+    .dept-dir-item { padding-bottom: 12px; border-bottom: 1px solid rgba(26,58,45,.08); font-family: var(--font-sans); font-size: .92rem; color: var(--text-dark); font-weight: 500; }
+    .dept-dir-item:last-child { border-bottom: none; }
+    .dept-dir-quote { font-family: var(--font-serif); font-style: italic; font-size: 1.1rem; color: var(--text-muted); line-height: 1.5; padding-top: 16px; border-top: 1px dashed var(--border); }
+
+    .dept-directory__cta { display: flex; justify-content: center; margin-top: 32px; }
+    .btn-dept-cta { background: var(--green); color: var(--cream); font-family: var(--font-sans); font-size: .72rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; padding: 20px 48px; display: inline-flex; align-items: center; gap: 14px; transition: background var(--ease), transform var(--ease); border-radius: 4px; }
+    .btn-dept-cta:hover { background: var(--green-dark); transform: translateY(-2px); }
+
+    /* RESPONSIVE */
+    @media (max-width: 1100px) {
+      .dept-hero__inner, .dept-featured__inner, .dept-grid-section__inner, .dept-directory__inner { padding: 0 40px; }
+      .dept-featured__inner { grid-template-columns: 1fr; gap: 48px; justify-items: center; }
+      .dept-featured__cards { width: 100%; height: auto; display: flex; flex-direction: column; gap: 32px; }
+      .dept-feat-card { position: relative; width: 100%; top: auto !important; left: auto !important; }
+    }
+    @media (max-width: 960px) {
+      .dept-hero { padding: calc(var(--nav-h) + 40px) 0 0; }
+      .dept-hero__top { grid-template-columns: 1fr; gap: 32px; }
+      .dept-stats { grid-template-columns: 1fr; }
+      .dept-tile-grid { grid-template-columns: repeat(2, 1fr); }
+      .dept-directory__columns { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .dept-hero__inner, .dept-featured__inner, .dept-grid-section__inner, .dept-directory__inner { padding: 0 24px; }
+      .dept-tile-grid { grid-template-columns: 1fr; }
+      .dept-directory__columns { grid-template-columns: 1fr; }
+    }
+    /* Interactive Filter Bar Styles */
+    .dept-filter-bar {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      font-family: var(--font-sans);
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 10px 24px;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      color: var(--text-dark);
+      cursor: pointer;
+      transition: all var(--ease);
+    }
+    .filter-btn:hover {
+      border-color: var(--green);
+      color: var(--green);
+    }
+    .filter-btn.active {
+      background: var(--green);
+      border-color: var(--green);
+      color: var(--cream);
+      box-shadow: 0 4px 12px rgba(24,53,39,0.15);
+    }
+    .dept-dir-item {
+      transition: opacity 0.3s ease, transform 0.3s ease, max-height 0.3s ease, padding 0.3s ease, margin 0.3s ease;
+      max-height: 80px;
+      opacity: 1;
+      transform: scale(1);
+    }
+    .dept-dir-item.hidden {
+      opacity: 0;
+      transform: scale(0.95);
+      max-height: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+      margin-top: 0;
+      margin-bottom: 0;
+      border: none;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .dept-dir-quote {
+      transition: opacity 0.3s ease;
+    }
+    .dept-dir-quote.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAV ===== -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">
+        <img src="images/mes_logo.png" alt="MES Logo" class="nav__logo-img"/>
+        <div class="nav__logo-text">
+          <span class="nav__logo-top">MES Ponnani</span>
+          <span class="nav__logo-bot">College</span>
+        </div>
+      </a>
+      <ul class="nav__links" id="nav-links">
+        <li><a href="about.html"       class="nav__link">About</a></li>
+        <li><a href="academics.html"   class="nav__link">Academics</a></li>
+        <li><a href="admissions.html"  class="nav__link">Admissions</a></li>
+        <li><a href="research.html"    class="nav__link">Research</a></li>
+        <li><a href="campus.html"      class="nav__link">Campus</a></li>
+        <li><a href="departments.html" class="nav__link active">Departments</a></li>
+        <li><a href="contact.html"     class="nav__link">Contact</a></li>
+        <li class="nav__more-wrapper">
+          <button class="nav__more-btn" id="nav-more-btn" aria-haspopup="true" aria-expanded="false">
+            <span>More</span>
+            <svg class="nav__more-icon" width="10" height="6" viewBox="0 0 10 6" fill="none">
+              <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="nav__more-dropdown" id="nav-more-dropdown">
+            <a href="#" class="nav__more-link">Alumni Portal</a>
+            <a href="#" class="nav__more-link">IQAC</a>
+            <a href="#" class="nav__more-link">Gallery</a>
+            <a href="#" class="nav__more-link">Privacy Policy</a>
+            <a href="#" class="nav__more-link">Terms of Service</a>
+          </div>
+        </li>
+      </ul>
+      <a href="admissions.html" class="nav__apply">
+        <span>APPLY</span><span>NOW</span>
+      </a>
+      <button class="nav__hamburger" id="nav-hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="dept-page">
+
+    <!-- ===== DEPARTMENTS HERO ===== -->
+    <section class="dept-hero">
+      <div class="dept-hero__inner">
+
+        <div class="dept-hero__top">
+          <div class="dept-hero__left reveal">
+            <p class="section-tag">Departments</p>
+            <div class="section-rule"></div>
+            <h1 class="dept-hero__heading">
+              Explore Every<br><em>Discipline.</em>
+            </h1>
+          </div>
+          <div class="dept-hero__right reveal reveal-d1">
+            <p class="dept-hero__desc">A multidisciplinary ecosystem designed to foster intellectual growth. From fundamental sciences to evolving technologies, our departments are the pillars of academic excellence.</p>
+          </div>
+        </div>
+
+        <!-- Stats Row -->
+        <div class="dept-stats">
+          <div class="dept-stat dept-stat--green reveal">
+            <div class="dept-stat__num">18+</div>
+            <div class="dept-stat__label">Departments</div>
+          </div>
+          <div class="dept-stat dept-stat--brick reveal reveal-d1">
+            <div class="dept-stat__num">25+</div>
+            <div class="dept-stat__label">Academic Programmes</div>
+          </div>
+          <div class="dept-stat dept-stat--cream reveal reveal-d2">
+            <div class="dept-stat__num">100+</div>
+            <div class="dept-stat__label">Faculty Members</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== FEATURED DEPARTMENTS ===== -->
+    <section class="dept-featured">
+      <div class="dept-featured__inner">
+
+        <!-- Left: tall campus image -->
+        <div class="dept-featured__img-wrap reveal">
+          <img src="images/about_campus.jpg" alt="MES Ponnani College Campus"/>
+        </div>
+
+        <!-- Right: 3 stacked feature cards -->
+        <div class="dept-featured__cards">
+
+          <!-- Card 1: AI - green -->
+          <div class="dept-feat-card dept-feat-card--green reveal">
+            <div class="dept-feat-card__faculty-wrap">
+              <span class="dept-feat-card__faculty">Faculty of Science</span>
+              <div class="dept-feat-card__icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="color:var(--white);">
+                  <path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+            <h2 class="dept-feat-card__title">Artificial<br>Intelligence</h2>
+            <p class="dept-feat-card__desc">Pioneering the next generation of computing through advanced neural models and ethics.</p>
+            <a href="academics.html" class="dept-feat-card__link" id="dept-ai-explore">
+              EXPLORE &rarr;
+            </a>
+          </div>
+
+          <!-- Card 2: CS - cream -->
+          <div class="dept-feat-card dept-feat-card--cream reveal reveal-d1">
+            <div class="dept-feat-card__faculty-wrap">
+              <span class="dept-feat-card__faculty">Faculty of Science</span>
+              <div class="dept-feat-card__icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="color:var(--green);">
+                  <rect x="2" y="3" width="20" height="14" rx="2" stroke="currentColor" stroke-width="1.4"/>
+                  <path d="M6 21h12M12 17v4" stroke="currentColor" stroke-width="1.4"/>
+                </svg>
+              </div>
+            </div>
+            <h2 class="dept-feat-card__title">Computer<br>Science</h2>
+            <p class="dept-feat-card__desc">Mastering the language of machines to solve real-world problems through logic.</p>
+            <a href="academics.html" class="dept-feat-card__link" id="dept-cs-explore">
+              EXPLORE &rarr;
+            </a>
+          </div>
+
+          <!-- Card 3: Commerce - brick -->
+          <div class="dept-feat-card dept-feat-card--brick reveal reveal-d2">
+            <div class="dept-feat-card__faculty-wrap">
+              <span class="dept-feat-card__faculty">Faculty of Commerce</span>
+              <div class="dept-feat-card__icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="color:var(--white);">
+                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+            <h2 class="dept-feat-card__title">Commerce</h2>
+            <p class="dept-feat-card__desc">Cultivating business leaders with a deep understanding of global economics.</p>
+            <a href="academics.html" class="dept-feat-card__link" id="dept-commerce-explore">
+              EXPLORE &rarr;
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== DEPARTMENT TILES GRID (6 tiles) ===== -->
+    <section class="dept-grid-section">
+      <div class="dept-grid-section__inner">
+        <div class="dept-tile-grid">
+
+          <!-- 1: Physics - green -->
+          <div class="dept-tile dept-tile--green reveal" id="dept-tile-physics">
+            <div class="dept-tile__icon-wrap">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="color:var(--white);">
+                <circle cx="12" cy="12" r="2.5" stroke="currentColor" stroke-width="1.3"/>
+                <ellipse cx="12" cy="12" rx="9" ry="3.5" stroke="currentColor" stroke-width="1.3"/>
+                <ellipse cx="12" cy="12" rx="9" ry="3.5" transform="rotate(60 12 12)" stroke="currentColor" stroke-width="1.3"/>
+                <ellipse cx="12" cy="12" rx="9" ry="3.5" transform="rotate(120 12 12)" stroke="currentColor" stroke-width="1.3"/>
+              </svg>
+            </div>
+            <h3 class="dept-tile__name">Physics</h3>
+            <a href="academics.html" class="dept-tile__link" id="tile-physics-link">
+              EXPLORE &rarr;
+            </a>
+          </div>
+
+          <!-- 2: Chemistry - brick -->
+          <div class="dept-tile dept-tile--brick reveal reveal-d1" id="dept-tile-chemistry">
+            <div class="dept-tile__icon-wrap">
+              <svg width="20" height="24" viewBox="0 0 20 24" fill="none" style="color:var(--white);">
+                <path d="M7 1h6M7 1v8L1 20a1 1 0 00.9 1.5h16.2A1 1 0 0019 20L13 9V1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="7.5" cy="17" r="1.2" fill="currentColor"/>
+                <circle cx="12" cy="15" r="1" fill="currentColor"/>
+              </svg>
+            </div>
+            <h3 class="dept-tile__name">Chemistry</h3>
+            <a href="academics.html" class="dept-tile__link" id="tile-chemistry-link">
+              EXPLORE &rarr;
+            </a>
+          </div>
+
+          <!-- 3: English - cream -->
+          <div class="dept-tile dept-tile--cream reveal reveal-d2" id="dept-tile-english">
+            <div class="dept-tile__icon-wrap">
+              <svg width="24" height="18" viewBox="0 0 24 18" fill="none" style="color:var(--green);">
+                <path d="M12 3C9 1 5 1 2 2v14c3-1 7-1 10 1V3zM12 3c3-2 7-2 10-1v14c-3-1-7-1-10 1V3z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3 class="dept-tile__name">English</h3>
+            <a href="academics.html" class="dept-tile__link" id="tile-english-link">
+              EXPLORE &rarr;
+            </a>
+          </div>
+
+          <!-- 4: Mathematics - brick -->
+          <div class="dept-tile dept-tile--brick reveal" id="dept-tile-maths">
+            <div class="dept-tile__icon-wrap">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none" style="color:var(--white);">
+                <path d="M16 2H6l6 9-6 9h10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3 class="dept-tile__name">Mathematics</h3>
+            <a href="academics.html" class="dept-tile__link" id="tile-maths-link">
+              EXPLORE &rarr;
+            </a>
+          </div>
+
+          <!-- 5: Zoology - green -->
+          <div class="dept-tile dept-tile--green reveal reveal-d1" id="dept-tile-zoology">
+            <div class="dept-tile__icon-wrap">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none" style="color:var(--white);">
+                <path d="M4 18c2-6 6-12 16-16C20 12 14 16 8 18" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M4 18L11 11" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3 class="dept-tile__name">Zoology</h3>
+            <a href="academics.html" class="dept-tile__link" id="tile-zoology-link">
+              EXPLORE &rarr;
+            </a>
+          </div>
+
+          <!-- 6: Research - white -->
+          <div class="dept-tile dept-tile--white reveal reveal-d2" id="dept-tile-research">
+            <div class="dept-tile__icon-wrap">
+              <svg width="20" height="24" viewBox="0 0 20 24" fill="none" style="color:var(--green);">
+                <circle cx="9" cy="10" r="6" stroke="currentColor" stroke-width="1.3"/>
+                <path d="M13.5 15L18 20" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                <path d="M6 10h6M9 7v6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3 class="dept-tile__name">Research</h3>
+            <a href="research.html" class="dept-tile__link" id="tile-research-link">
+              EXPLORE &rarr;
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== DEPARTMENT DIRECTORY ===== -->
+    <section class="dept-directory">
+      <div class="dept-directory__inner">
+
+        <div class="dept-directory__header">
+          <div class="reveal">
+            <p class="section-tag">Department Directory</p>
+            <div class="section-rule"></div>
+            <h2 class="dept-directory__heading">All Departments</h2>
+            <div class="dept-directory__rule"></div>
+          </div>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="dept-filter-bar reveal">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="science">Science &amp; Tech</button>
+          <button class="filter-btn" data-filter="humanities">Languages &amp; Humanities</button>
+          <button class="filter-btn" data-filter="commerce">Commerce &amp; Management</button>
+        </div>
+
+        <div class="dept-directory__columns reveal">
+          
+          <!-- Column 1 -->
+          <div class="dept-dir-column">
+            <div class="dept-dir-item" data-category="science">Aqua Culture &amp; Fishery Microbiology</div>
+            <div class="dept-dir-item" data-category="humanities">Arabic</div>
+            <div class="dept-dir-item" data-category="science">Botany</div>
+            <div class="dept-dir-item" data-category="commerce">Business Administration</div>
+            <div class="dept-dir-item" data-category="science">Data Science</div>
+          </div>
+
+          <!-- Column 2 -->
+          <div class="dept-dir-column">
+            <div class="dept-dir-item" data-category="humanities">Economics</div>
+            <div class="dept-dir-item" data-category="humanities">Fashion Design</div>
+            <div class="dept-dir-item" data-category="science">Geology</div>
+            <div class="dept-dir-item" data-category="humanities">Hindi</div>
+            <div class="dept-dir-item" data-category="humanities">History</div>
+          </div>
+
+          <!-- Column 3 -->
+          <div class="dept-dir-column">
+            <div class="dept-dir-item" data-category="humanities">Malayalam</div>
+            <div class="dept-dir-item" data-category="science">Physical Education</div>
+            <div class="dept-dir-item" data-category="humanities">Political Science</div>
+            <div class="dept-dir-quote" data-category="all-only">"Departments continue to expand with emerging disciplines."</div>
+          </div>
+
+        </div>
+
+        <div class="dept-directory__cta reveal">
+          <a href="academics.html" class="btn-dept-cta" id="explore-all-depts-btn">
+            EXPLORE ALL DEPARTMENTS
+            <svg width="16" height="10" viewBox="0 0 16 10" fill="none"><path d="M1 5h14M10 1l5 4-5 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer" id="footer">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <div class="footer__logo-top">MES Ponnani</div>
+        <div class="footer__logo-bot">College</div>
+      </div>
+      <nav class="footer__links">
+        <a href="#" class="footer__link">Privacy Policy</a>
+        <a href="#" class="footer__link">Terms of Service</a>
+        <a href="contact.html" class="footer__link">Contact Us</a>
+        <a href="#" class="footer__link">Alumni Portal</a>
+      </nav>
+      <div style="text-align:right;">
+        <a href="#" class="footer__link" style="display:block;margin-bottom:8px;">IQAC</a>
+        <p class="footer__copy">&copy; 2024 MES Ponnani College. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const deptItems = document.querySelectorAll('.dept-dir-item, .dept-dir-quote');
+      
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          // Remove active class from all buttons
+          filterBtns.forEach(b => b.classList.remove('active'));
+          // Add active class to clicked button
+          btn.classList.add('active');
+          
+          const filterValue = btn.getAttribute('data-filter');
+          
+          deptItems.forEach(item => {
+            const cat = item.getAttribute('data-category');
+            if (filterValue === 'all') {
+              item.classList.remove('hidden');
+            } else {
+              if (cat === filterValue) {
+                item.classList.remove('hidden');
+              } else {
+                item.classList.add('hidden');
+              }
+            }
+          });
+        });
+      });
+    });
+  </script>
+</body>
+</html>

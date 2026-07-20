@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <script>
+    if (sessionStorage.getItem('site_authenticated') !== 'true') {
+      window.location.href = 'login.html';
+    }
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Us — MES Ponnani College</title>
+  <meta name="description" content="Learn about the legacy of MES Ponnani College — established in 1968, affiliated with the University of Calicut, and dedicated to excellence in education and community development."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+
+  <style>
+    /* ============================================================
+       ABOUT PAGE — EXTRA STYLES
+       ============================================================ */
+
+    /* ── Page Hero / Intro ─────────────────────────────────── */
+    .ab-hero {
+      padding-top: var(--nav-h);
+      background: var(--cream);
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+
+
+    .ab-hero__inner {
+      max-width: 1280px; margin: 0 auto;
+      padding: 0 64px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      width: 100%;
+      position: relative; z-index: 1;
+      align-items: center;
+    }
+
+    .ab-hero__left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .ab-hero__heading {
+      font-family: var(--font-serif);
+      font-size: clamp(3.2rem, 5.5vw, 5.5rem);
+      font-weight: 500;
+      line-height: 1.05;
+      color: var(--green);
+      margin-bottom: 24px;
+    }
+
+    .ab-hero__heading em {
+      font-style: italic;
+      color: var(--brick);
+    }
+
+    .ab-hero__desc {
+      font-family: var(--font-sans);
+      font-size: .92rem;
+      line-height: 1.85;
+      color: var(--text-muted);
+      max-width: 520px;
+      margin-bottom: 32px;
+    }
+
+    .ab-hero__right {
+      position: relative;
+      height: 520px;
+      overflow: hidden;
+      box-shadow: 0 12px 48px rgba(0,0,0,.12);
+    }
+
+    .ab-hero__right img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .6s ease;
+    }
+    .ab-hero__right:hover img {
+      transform: scale(1.03);
+    }
+
+    /* ── Timeline Section ─────────────────────────────────── */
+    .timeline-section {
+      background: var(--white);
+      padding: 100px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .timeline-inner {
+      max-width: 1280px; margin: 0 auto;
+      padding: 0 64px;
+    }
+
+    .timeline-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+      position: relative;
+      margin-top: 64px;
+      padding-left: 40px;
+    }
+
+    /* Vertical line in timeline */
+    .timeline-grid::before {
+      content: '';
+      position: absolute;
+      left: 7px; top: 8px; bottom: 8px;
+      width: 2px;
+      background: var(--border);
+    }
+
+    .timeline-item {
+      position: relative;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -40px; top: 10px;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: var(--brick);
+      border: 4px solid var(--white);
+      box-shadow: 0 0 0 2px var(--brick);
+      transition: transform .3s ease;
+    }
+    .timeline-item:hover::before {
+      transform: scale(1.25);
+    }
+
+    .timeline-year {
+      font-family: var(--font-serif);
+      font-size: 2.4rem; font-weight: 600;
+      color: var(--green);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .timeline-title {
+      font-family: var(--font-sans);
+      font-size: .95rem; font-weight: 600;
+      letter-spacing: .02em;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+
+    .timeline-desc {
+      font-family: var(--font-sans);
+      font-size: .88rem; line-height: 1.75;
+      color: var(--text-muted);
+      max-width: 720px;
+    }
+
+    /* ── Principal's Message ─────────────────────────────── */
+    .principal-section {
+      background: var(--cream);
+      padding: 100px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .principal-inner {
+      max-width: 1280px; margin: 0 auto;
+      padding: 0 64px;
+      display: grid;
+      grid-template-columns: 400px 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .principal-img-wrap {
+      position: relative;
+      height: 520px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,.1);
+      border-radius: 4px;
+    }
+    .principal-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .6s ease;
+    }
+    .principal-img-wrap:hover img {
+      transform: scale(1.04);
+    }
+
+    .principal-text-wrap {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .principal-quote {
+      font-family: var(--font-serif);
+      font-size: clamp(1.4rem, 2.5vw, 2.1rem);
+      font-style: italic;
+      line-height: 1.6;
+      color: var(--text-dark);
+      margin-bottom: 32px;
+      position: relative;
+    }
+
+    .principal-quote::before {
+      content: '“';
+      font-size: 8rem;
+      font-family: var(--font-serif);
+      position: absolute;
+      left: -32px; top: -50px;
+      color: rgba(139, 51, 38, 0.12);
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .principal-name {
+      font-family: var(--font-sans);
+      font-size: .85rem; font-weight: 600;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--green);
+    }
+
+    .principal-title {
+      font-family: var(--font-sans);
+      font-size: .75rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* ── Governing Body / Management ─────────────────────── */
+    .governing-section {
+      background: var(--white);
+      padding: 100px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .governing-inner {
+      max-width: 1280px; margin: 0 auto;
+      padding: 0 64px;
+    }
+
+    .governing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin-top: 56px;
+    }
+
+    .governing-card {
+      border: 1px solid var(--border);
+      padding: 40px 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 220px;
+      transition: transform var(--ease), box-shadow var(--ease);
+      border-radius: 4px;
+    }
+    .governing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0,0,0,.08);
+    }
+    
+    .governing-card:nth-child(1) { background: var(--green); border-color: var(--green); }
+    .governing-card:nth-child(2) { background: var(--cream); border-color: rgba(154,69,44,0.15); }
+    .governing-card:nth-child(3) { background: var(--brick); border-color: var(--brick); }
+
+    .governing-role {
+      font-family: var(--font-sans);
+      font-size: .62rem; font-weight: 600;
+      letter-spacing: .15em; text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .governing-card:nth-child(1) .governing-role,
+    .governing-card:nth-child(3) .governing-role { color: rgba(255,255,255,0.7); }
+    .governing-card:nth-child(2) .governing-role { color: var(--brick); }
+
+    .governing-name {
+      font-family: var(--font-serif);
+      font-size: 1.65rem; font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+    .governing-card:nth-child(1) .governing-name,
+    .governing-card:nth-child(3) .governing-name { color: var(--white); }
+    .governing-card:nth-child(2) .governing-name { color: var(--green); }
+
+    .governing-org {
+      font-family: var(--font-sans);
+      font-size: .8rem;
+      line-height: 1.6;
+    }
+    .governing-card:nth-child(1) .governing-org,
+    .governing-card:nth-child(3) .governing-org { color: rgba(255,255,255,0.85); }
+    .governing-card:nth-child(2) .governing-org { color: var(--text-muted); }
+
+    /* ── Responsive ──────────────────────────────────────── */
+    @media (max-width: 1100px) {
+      .ab-hero__inner,
+      .timeline-inner,
+      .principal-inner,
+      .governing-inner { padding: 0 40px; }
+    }
+    @media (max-width: 960px) {
+      .ab-hero {
+        padding-top: calc(var(--nav-h) + 40px);
+        padding-bottom: 40px;
+        min-height: auto;
+      }
+      .ab-hero__inner { grid-template-columns: 1fr; gap: 40px; }
+      .ab-hero__right { height: 380px; }
+      .principal-inner { grid-template-columns: 1fr; gap: 40px; }
+      .principal-img-wrap { height: 420px; }
+      .governing-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .ab-hero__inner,
+      .timeline-inner,
+      .principal-inner,
+      .governing-inner { padding: 0 24px; }
+      .governing-grid { grid-template-columns: 1fr; }
+      .ab-hero__heading { font-size: 2.8rem; }
+      .timeline-year { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAV ===== -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">
+        <img src="images/mes_logo.png" alt="MES Logo" class="nav__logo-img"/>
+        <div class="nav__logo-text">
+          <span class="nav__logo-top">MES Ponnani</span>
+          <span class="nav__logo-bot">College</span>
+        </div>
+      </a>
+      <ul class="nav__links" id="nav-links">
+        <li><a href="about.html"       class="nav__link active">About</a></li>
+        <li><a href="academics.html"   class="nav__link">Academics</a></li>
+        <li><a href="admissions.html"  class="nav__link">Admissions</a></li>
+        <li><a href="research.html"    class="nav__link">Research</a></li>
+        <li><a href="campus.html"      class="nav__link">Campus</a></li>
+        <li><a href="departments.html" class="nav__link">Departments</a></li>
+        <li><a href="contact.html"     class="nav__link">Contact</a></li>
+        <li class="nav__more-wrapper">
+          <button class="nav__more-btn" id="nav-more-btn" aria-haspopup="true" aria-expanded="false">
+            <span>More</span>
+            <svg class="nav__more-icon" width="10" height="6" viewBox="0 0 10 6" fill="none">
+              <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="nav__more-dropdown" id="nav-more-dropdown">
+            <a href="#" class="nav__more-link">Alumni Portal</a>
+            <a href="#" class="nav__more-link">IQAC</a>
+            <a href="#" class="nav__more-link">Gallery</a>
+            <a href="#" class="nav__more-link">Privacy Policy</a>
+            <a href="#" class="nav__more-link">Terms of Service</a>
+          </div>
+        </li>
+      </ul>
+      <a href="admissions.html" class="nav__apply">
+        <span>APPLY</span><span>NOW</span>
+      </a>
+      <button class="nav__hamburger" id="nav-hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="ab-hero" id="about-hero">
+    <div class="ab-hero__inner">
+      <div class="ab-hero__left reveal">
+        <p class="section-tag">About MES Ponnani</p>
+        <div class="section-rule"></div>
+        <h1 class="ab-hero__heading">
+          A Legacy of<br>
+          <em>Empowerment.</em>
+        </h1>
+        <p class="ab-hero__desc">
+          Established in 1968, MES Ponnani College remains a beacon of hope and advancement for the coastal regions of Malappuram district. Affiliated with the University of Calicut, the college was founded under the Muslim Educational Society (MES) with a visionary goal to provide inclusive and quality higher education to all.
+        </p>
+        <a href="#about-history" class="about__link-btn" id="about-timeline-btn">
+          Explore Our Timeline
+          <span>↓</span>
+        </a>
+      </div>
+      <div class="ab-hero__right reveal reveal-d1">
+        <img src="images/about_hero.jpg" alt="MES Ponnani College Campus Front View"/>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HISTORY TIMELINE ===== -->
+  <section class="timeline-section" id="about-history">
+    <div class="timeline-inner">
+      <div class="reveal">
+        <p class="section-tag">Our Milestones</p>
+        <div class="section-rule"></div>
+        <h2 class="about__heading">
+          Five Decades<br>
+          <em>of Academic Growth</em>
+        </h2>
+      </div>
+
+      <div class="timeline-grid">
+        <!-- 1968 -->
+        <div class="timeline-item reveal">
+          <div class="timeline-year">1968</div>
+          <div class="timeline-title">The Foundation Stones</div>
+          <p class="timeline-desc">
+            MES Ponnani College was established on a 25-acre lush green campus near the Ponnani estuary. Classes commenced under the patronage of the Muslim Educational Society, addressing a long-standing need for a center of higher education along the Malabar coastline.
+          </p>
+        </div>
+
+        <!-- 1978 -->
+        <div class="timeline-item reveal">
+          <div class="timeline-year">1978</div>
+          <div class="timeline-title">Expansion into Science & Commerce</div>
+          <p class="timeline-desc">
+            The college expanded its initial arts curriculum to introduce major science streams and undergraduate programmes in commerce, building advanced laboratories and attracting scholars from across Kerala.
+          </p>
+        </div>
+
+        <!-- 2004 -->
+        <div class="timeline-item reveal">
+          <div class="timeline-year">2004</div>
+          <div class="timeline-title">NAAC Accreditation</div>
+          <p class="timeline-desc">
+            Recognizing the institution's commitment to high teaching standards, research initiatives, and holistic community services, the National Assessment and Accreditation Council (NAAC) accredited the college for the first time.
+          </p>
+        </div>
+
+        <!-- 2018 -->
+        <div class="timeline-item reveal">
+          <div class="timeline-year">2018</div>
+          <div class="timeline-title">Golden Jubilee & Modernization</div>
+          <p class="timeline-desc">
+            Commemorating 50 years of academic service, the college underwent a massive infrastructure revitalization program, adding state-of-the-art computer labs, smart classrooms, and a highly automated central library.
+          </p>
+        </div>
+
+        <!-- Present -->
+        <div class="timeline-item reveal">
+          <div class="timeline-year">Present</div>
+          <div class="timeline-title">NAAC A+ & Technological Frontiers</div>
+          <p class="timeline-desc">
+            With a prestigious NAAC A+ accreditation, MES Ponnani College stands at the forefront of modern education, introducing advanced programs like BSc in Artificial Intelligence and establishing active research cells in computer science, physics, and humanities.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PRINCIPAL MESSAGE ===== -->
+  <section class="principal-section" id="principal-msg">
+    <div class="principal-inner">
+      <div class="principal-img-wrap reveal">
+        <img src="images/about_campus.jpg" alt="Principal's Office MES Ponnani College"/>
+      </div>
+      <div class="principal-text-wrap reveal reveal-d1">
+        <p class="section-tag">Principal's Address</p>
+        <div class="section-rule"></div>
+        <blockquote class="principal-quote">
+          "Education is the most powerful weapon which you can use to change the world. At MES Ponnani, we strive to build not just careers, but characters. We nurture young minds to research, discover, adapt, and serve society with integrity and empathy."
+        </blockquote>
+        <div class="principal-author">
+          <span class="principal-name">Dr. Ajims P. Mohammed</span>
+          <span class="principal-title">Principal, MES Ponnani College</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== GOVERNING BODY ===== -->
+  <section class="governing-section" id="governing-board">
+    <div class="governing-inner">
+      <div class="reveal">
+        <p class="section-tag">Management</p>
+        <div class="section-rule"></div>
+        <h2 class="about__heading">
+          The Governing<br>
+          <em>Body</em>
+        </h2>
+      </div>
+
+      <div class="governing-grid">
+        <!-- President -->
+        <div class="governing-card reveal">
+          <div>
+            <div class="governing-role">President</div>
+            <div class="governing-name">Dr. P. A. Fazal Gafoor</div>
+          </div>
+          <p class="governing-org">President, Muslim Educational Society (MES) Kerala State Committee</p>
+        </div>
+
+        <!-- Secretary -->
+        <div class="governing-card reveal reveal-d1">
+          <div>
+            <div class="governing-role">Secretary / Correspondent</div>
+            <div class="governing-name">Prof. Kadavanad Mohamed</div>
+          </div>
+          <p class="governing-org">Local Managing Committee, MES Ponnani College</p>
+        </div>
+
+        <!-- Chairman -->
+        <div class="governing-card reveal reveal-d2">
+          <div>
+            <div class="governing-role">Treasurer</div>
+            <div class="governing-name">Sri. O. C. Salahudheen</div>
+          </div>
+          <p class="governing-org">Treasurer, Muslim Educational Society (MES) Corporate Committee</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer" id="footer">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <div class="footer__logo-top">MES Ponnani</div>
+        <div class="footer__logo-bot">College</div>
+      </div>
+      <nav class="footer__links">
+        <a href="#" class="footer__link">Privacy Policy</a>
+        <a href="#" class="footer__link">Terms of Service</a>
+        <a href="contact.html" class="footer__link">Contact Us</a>
+        <a href="#" class="footer__link">Alumni Portal</a>
+      </nav>
+      <div style="text-align:right;">
+        <a href="#" class="footer__link" style="display:block;margin-bottom:8px;">IQAC</a>
+        <p class="footer__copy">© 2024 MES Ponnani College. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
